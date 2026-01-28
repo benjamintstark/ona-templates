@@ -1,0 +1,227 @@
+[
+  {
+    "id": "generate-react-component",
+    "title": "Generate React Component",
+    "type": "prompt",
+    "description": "Creates a fully typed React component from a natural language description with props, state, and styling.",
+    "content": "Create a React component called [ComponentName] that [describe functionality]. Include:\n- TypeScript types for all props\n- Proper state management with useState/useReducer\n- CSS modules or styled-components for styling\n- Unit tests with React Testing Library",
+    "tags": {
+      "category": "code-development",
+      "persona": ["developer"],
+      "complexity": "beginner"
+    },
+    "requirements": [],
+    "exampleOutput": "Created UserCard.tsx with props interface, useState for loading state, and UserCard.module.css",
+    "featured": true
+  },
+  {
+    "id": "create-api-endpoint",
+    "title": "Create REST API Endpoint",
+    "type": "prompt",
+    "description": "Scaffolds a complete REST API endpoint with validation, error handling, and tests.",
+    "content": "Create a REST API endpoint for [resource] with the following:\n- HTTP method: [GET/POST/PUT/DELETE]\n- Request validation using Zod or Joi\n- Proper error handling with status codes\n- Integration tests\n- OpenAPI/Swagger documentation",
+    "tags": {
+      "category": "code-development",
+      "persona": ["developer", "tech-lead"],
+      "complexity": "intermediate"
+    },
+    "requirements": [],
+    "exampleOutput": "Created /api/users endpoint with POST handler, validation schema, and test file",
+    "featured": true
+  },
+  {
+    "id": "review-pr-security",
+    "title": "Security-Focused PR Review",
+    "type": "prompt",
+    "description": "Reviews pull request changes for security vulnerabilities, injection risks, and auth issues.",
+    "content": "Review this PR for security issues. Check for:\n- SQL/NoSQL injection vulnerabilities\n- XSS and CSRF risks\n- Authentication/authorization bypasses\n- Sensitive data exposure\n- Insecure dependencies\n- Hardcoded secrets or credentials\n\nProvide specific line references and remediation steps.",
+    "tags": {
+      "category": "code-review",
+      "persona": ["developer", "security-engineer"],
+      "complexity": "advanced"
+    },
+    "requirements": [],
+    "exampleOutput": "Found 3 issues: SQL injection on line 45, missing CSRF token on form, exposed API key in config",
+    "featured": true
+  },
+  {
+    "id": "performance-review",
+    "title": "Performance Optimization Review",
+    "type": "prompt",
+    "description": "Analyzes code for performance bottlenecks and suggests optimizations.",
+    "content": "Review this code for performance issues. Analyze:\n- Time complexity of algorithms\n- Memory usage and potential leaks\n- Database query efficiency (N+1 problems)\n- Unnecessary re-renders (React)\n- Bundle size impact\n\nSuggest specific optimizations with before/after examples.",
+    "tags": {
+      "category": "code-review",
+      "persona": ["developer", "tech-lead"],
+      "complexity": "advanced"
+    },
+    "requirements": [],
+    "exampleOutput": "Found N+1 query in user loader. Suggested: Use DataLoader pattern to batch queries.",
+    "featured": false
+  },
+  {
+    "id": "debug-stack-trace",
+    "title": "Analyze Error Stack Trace",
+    "type": "prompt",
+    "description": "Interprets error stack traces and identifies root cause with fix suggestions.",
+    "content": "Analyze this error stack trace and help me understand:\n1. What is the root cause?\n2. Which file/line is the actual source of the error?\n3. What are possible fixes?\n4. How can I prevent this in the future?\n\n[Paste stack trace here]",
+    "tags": {
+      "category": "debugging",
+      "persona": ["developer"],
+      "complexity": "beginner"
+    },
+    "requirements": [],
+    "exampleOutput": "Root cause: Null reference at UserService.ts:23. The user object is undefined when accessed. Fix: Add null check before accessing user.email",
+    "featured": false
+  },
+  {
+    "id": "find-failing-test-cause",
+    "title": "Debug Failing Test",
+    "type": "prompt",
+    "description": "Investigates why a test is failing and provides targeted fixes.",
+    "content": "This test is failing: [test name]\n\nError message: [paste error]\n\nHelp me understand:\n1. Why is this test failing?\n2. Is it a test issue or a code issue?\n3. What's the minimal fix?\n4. Are there related tests that might also be affected?",
+    "tags": {
+      "category": "debugging",
+      "persona": ["developer"],
+      "complexity": "intermediate"
+    },
+    "requirements": [],
+    "exampleOutput": "Test fails because mock doesn't match new API response shape. Update mock to include 'metadata' field.",
+    "featured": false
+  },
+  {
+    "id": "linear-issue-from-code",
+    "title": "Create Linear Issue from Code",
+    "type": "prompt",
+    "description": "Creates a Linear issue with context extracted from the current code file or error.",
+    "content": "Create a Linear issue for this problem:\n- Extract relevant context from the current file\n- Set appropriate priority based on severity\n- Add relevant labels\n- Link to the file/line in the repository\n- Suggest an assignee based on git blame",
+    "tags": {
+      "category": "project-management",
+      "persona": ["developer", "tech-lead"],
+      "complexity": "beginner"
+    },
+    "requirements": ["Linear integration configured"],
+    "exampleOutput": "Created issue DEV-456: 'Fix null pointer in UserService' with High priority, assigned to @john",
+    "featured": true
+  },
+  {
+    "id": "generate-readme",
+    "title": "Generate README from Codebase",
+    "type": "prompt",
+    "description": "Analyzes the codebase and generates a comprehensive README with setup instructions.",
+    "content": "Analyze this codebase and generate a README.md that includes:\n- Project description and purpose\n- Tech stack and dependencies\n- Installation and setup instructions\n- Environment variables needed\n- Available scripts/commands\n- Project structure overview\n- Contributing guidelines",
+    "tags": {
+      "category": "documentation",
+      "persona": ["developer", "tech-lead"],
+      "complexity": "beginner"
+    },
+    "requirements": [],
+    "exampleOutput": "Generated README.md with 8 sections covering setup, usage, and contribution guidelines",
+    "featured": false
+  },
+  {
+    "id": "explain-function",
+    "title": "Explain Complex Function",
+    "type": "prompt",
+    "description": "Provides a detailed explanation of what a function does, including edge cases.",
+    "content": "Explain this function in detail:\n- What is its purpose?\n- What are the inputs and outputs?\n- What are the edge cases?\n- Are there any side effects?\n- What's the time/space complexity?\n- How could it be improved?",
+    "tags": {
+      "category": "documentation",
+      "persona": ["developer"],
+      "complexity": "beginner"
+    },
+    "requirements": [],
+    "exampleOutput": "This function implements a debounced search. It delays API calls by 300ms to reduce server load...",
+    "featured": false
+  },
+  {
+    "id": "migrate-jest-vitest",
+    "title": "Migrate Jest to Vitest",
+    "type": "skill",
+    "description": "Automated migration from Jest to Vitest testing framework with config and test updates.",
+    "content": "Migrate this project from Jest to Vitest:\n1. Update package.json dependencies\n2. Create vitest.config.ts\n3. Update test files to use Vitest syntax\n4. Migrate Jest mocks to Vitest equivalents\n5. Update CI/CD configuration\n6. Run all tests to verify migration",
+    "tags": {
+      "category": "migrations",
+      "persona": ["developer", "tech-lead"],
+      "complexity": "intermediate"
+    },
+    "requirements": [],
+    "exampleOutput": "Migrated 45 test files, updated config, all 128 tests passing",
+    "featured": true
+  },
+  {
+    "id": "upgrade-react-18",
+    "title": "Upgrade React 17 to 18",
+    "type": "skill",
+    "description": "Handles React 18 upgrade including concurrent features and breaking changes.",
+    "content": "Upgrade this React 17 project to React 18:\n1. Update react and react-dom packages\n2. Migrate to createRoot API\n3. Update TypeScript types\n4. Fix StrictMode double-render issues\n5. Identify components that need Suspense boundaries\n6. Update testing utilities for React 18\n7. Document any breaking changes found",
+    "tags": {
+      "category": "migrations",
+      "persona": ["developer", "tech-lead"],
+      "complexity": "advanced"
+    },
+    "requirements": [],
+    "exampleOutput": "Upgraded to React 18.2, migrated 12 components, added 3 Suspense boundaries",
+    "featured": false
+  },
+  {
+    "id": "fix-vulnerable-deps",
+    "title": "Fix Vulnerable Dependencies",
+    "type": "prompt",
+    "description": "Identifies and fixes security vulnerabilities in project dependencies.",
+    "content": "Scan dependencies for security vulnerabilities and fix them:\n1. Run npm audit / yarn audit\n2. Identify high and critical vulnerabilities\n3. Determine safe upgrade paths\n4. Update dependencies with minimal breaking changes\n5. Run tests to verify nothing broke\n6. Document any manual interventions needed",
+    "tags": {
+      "category": "cve-remediation",
+      "persona": ["developer", "security-engineer", "devops"],
+      "complexity": "intermediate"
+    },
+    "requirements": [],
+    "exampleOutput": "Fixed 5 vulnerabilities: upgraded lodash 4.17.15 → 4.17.21, axios 0.21.0 → 1.6.0",
+    "featured": false
+  },
+  {
+    "id": "audit-npm-packages",
+    "title": "Security Audit npm Packages",
+    "type": "prompt",
+    "description": "Performs deep security audit of npm packages including transitive dependencies.",
+    "content": "Perform a security audit of this project's npm packages:\n1. Check for known CVEs in all dependencies\n2. Identify packages with no recent updates (abandoned)\n3. Flag packages with suspicious install scripts\n4. Check for typosquatting risks\n5. Review permissions requested by packages\n6. Generate a security report with recommendations",
+    "tags": {
+      "category": "cve-remediation",
+      "persona": ["security-engineer", "devops"],
+      "complexity": "advanced"
+    },
+    "requirements": [],
+    "exampleOutput": "Audit complete: 2 critical CVEs, 3 abandoned packages, 1 suspicious postinstall script",
+    "featured": false
+  },
+  {
+    "id": "setup-cicd-pipeline",
+    "title": "Set Up CI/CD Pipeline",
+    "type": "skill",
+    "description": "Creates a complete CI/CD pipeline with testing, linting, and deployment stages.",
+    "content": "Set up a CI/CD pipeline for this project:\n1. Create GitHub Actions workflow (or GitLab CI/Jenkins)\n2. Add linting and type-checking stage\n3. Add unit and integration test stages\n4. Add build stage with caching\n5. Add deployment stage with environment variables\n6. Configure branch protection rules\n7. Add status badges to README",
+    "tags": {
+      "category": "automations",
+      "persona": ["devops", "tech-lead"],
+      "complexity": "intermediate"
+    },
+    "requirements": [],
+    "exampleOutput": "Created .github/workflows/ci.yml with lint, test, build, and deploy stages",
+    "featured": false
+  },
+  {
+    "id": "create-precommit-hooks",
+    "title": "Create Pre-commit Hooks",
+    "type": "tool",
+    "description": "Sets up pre-commit hooks for linting, formatting, and commit message validation.",
+    "content": "Set up pre-commit hooks using Husky and lint-staged:\n1. Install husky and lint-staged\n2. Configure pre-commit hook for linting\n3. Configure pre-commit hook for formatting (Prettier)\n4. Add commit message validation (Commitlint)\n5. Add pre-push hook for tests\n6. Document the hooks in README",
+    "tags": {
+      "category": "automations",
+      "persona": ["developer", "tech-lead"],
+      "complexity": "beginner"
+    },
+    "requirements": [],
+    "exampleOutput": "Installed husky, configured lint-staged for .ts/.tsx files, added commitlint",
+    "featured": false
+  }
+]

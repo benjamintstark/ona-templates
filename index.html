@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ona Prompt Library</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <a href="/" class="logo">
+        <img src="https://ona.com/ona-wordmark-black.svg" alt="Ona" class="logo-img">
+      </a>
+      <nav class="nav">
+        <a href="https://ona.com/docs" class="nav-link">Docs</a>
+        <a href="https://ona.com/pricing" class="nav-link">Pricing</a>
+        <a href="https://ona.com" class="nav-link btn-primary">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="hero">
+      <h1>Ona Prompt Library</h1>
+      <p class="hero-subtitle">Discover curated prompts, skills, and tools to supercharge your development workflow with Ona.</p>
+    </section>
+
+    <section class="controls">
+      <div class="search-container">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+        <input type="text" id="search" placeholder="Search prompts, skills, and tools..." class="search-input">
+      </div>
+      
+      <div class="filters">
+        <div class="filter-group">
+          <label class="filter-label">Type</label>
+          <select id="filter-type" class="filter-select">
+            <option value="">All Types</option>
+            <option value="prompt">Prompt</option>
+            <option value="skill">Skill</option>
+            <option value="tool">Tool</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Use Case</label>
+          <select id="filter-category" class="filter-select">
+            <option value="">All Use Cases</option>
+            <option value="code-development">Code Development</option>
+            <option value="code-review">Code Review</option>
+            <option value="debugging">Debugging</option>
+            <option value="project-management">Project Management</option>
+            <option value="documentation">Documentation</option>
+            <option value="migrations">Migrations</option>
+            <option value="cve-remediation">CVE Remediation</option>
+            <option value="automations">Automations</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Persona</label>
+          <select id="filter-persona" class="filter-select">
+            <option value="">All Personas</option>
+            <option value="developer">Developer</option>
+            <option value="tech-lead">Tech Lead</option>
+            <option value="devops">DevOps</option>
+            <option value="security-engineer">Security Engineer</option>
+          </select>
+        </div>
+        
+        <button id="clear-filters" class="clear-filters-btn">Clear Filters</button>
+      </div>
+    </section>
+
+    <section class="featured-section" id="featured-section">
+      <h2 class="section-title">Featured</h2>
+      <div class="featured-grid" id="featured-grid"></div>
+    </section>
+
+    <section class="all-prompts-section">
+      <h2 class="section-title">All Prompts</h2>
+      <div class="results-count" id="results-count"></div>
+      <div class="prompts-grid" id="prompts-grid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2026 Ona. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="https://ona.com/docs">Docs</a>
+        <a href="https://ona.com/pricing">Pricing</a>
+        <a href="https://ona.com/contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">Copied to clipboard!</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
