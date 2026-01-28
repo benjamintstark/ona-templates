@@ -185,7 +185,7 @@ function createCard(prompt) {
           <h3 class="card-title">${escapeHtml(prompt.title)}</h3>
           <div class="card-badges">
             <span class="card-badge badge-category clickable" data-category="${prompt.tags.category}">${categoryIcons[prompt.tags.category] || ''}${categoryLabel}</span>
-            <span class="card-badge badge-${prompt.type}">
+            <span class="card-badge badge-${prompt.type} clickable-type" data-type="${prompt.type}">
               ${typeIcons[prompt.type]}
               ${prompt.type}
             </span>
@@ -270,6 +270,17 @@ function attachCardListeners() {
       e.stopPropagation();
       const category = badge.dataset.category;
       filterCategory.value = category;
+      applyFilters();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+  
+  // Type badges - click to filter
+  document.querySelectorAll('.clickable-type').forEach(badge => {
+    badge.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const type = badge.dataset.type;
+      filterType.value = type;
       applyFilters();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
