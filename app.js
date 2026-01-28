@@ -184,7 +184,7 @@ function createCard(prompt) {
         <div class="card-header">
           <h3 class="card-title">${escapeHtml(prompt.title)}</h3>
           <div class="card-badges">
-            <span class="card-badge badge-category">${categoryIcons[prompt.tags.category] || ''}${categoryLabel}</span>
+            <span class="card-badge badge-category clickable" data-category="${prompt.tags.category}">${categoryIcons[prompt.tags.category] || ''}${categoryLabel}</span>
             <span class="card-badge badge-${prompt.type}">
               ${typeIcons[prompt.type]}
               ${prompt.type}
@@ -261,6 +261,17 @@ function attachCardListeners() {
       const card = btn.closest('.card');
       card.classList.toggle('is-expanded');
       btn.textContent = card.classList.contains('is-expanded') ? 'Collapse' : 'Expand';
+    });
+  });
+  
+  // Category badges - click to filter
+  document.querySelectorAll('.badge-category.clickable').forEach(badge => {
+    badge.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const category = badge.dataset.category;
+      filterCategory.value = category;
+      applyFilters();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
 }

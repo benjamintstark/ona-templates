@@ -283,6 +283,16 @@ body {
   color: var(--color-text-secondary);
 }
 
+.badge-category.clickable {
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.badge-category.clickable:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
 .badge-prompt {
   background: rgba(139, 92, 246, 0.1);
   color: var(--color-prompt);
