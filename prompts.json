@@ -1,242 +1,242 @@
 [
   {
-    "id": "generate-react-component",
-    "title": "Generate React component",
-    "type": "prompt",
-    "description": "Creates a fully typed React component from a natural language description with props, state, and styling.",
-    "content": "Create a React component called [ComponentName] that [describe functionality]. Include:\n- TypeScript types for all props\n- Proper state management with useState/useReducer\n- CSS modules or styled-components for styling\n- Unit tests with React Testing Library",
-    "tags": {
-      "category": "code-development",
-      "persona": ["developer"],
-      "complexity": "beginner"
-    },
-    "requirements": [],
-    "exampleOutput": "Created UserCard.tsx with props interface, useState for loading state, and UserCard.module.css",
-    "featured": true
-  },
-  {
-    "id": "create-api-endpoint",
-    "title": "Create REST API endpoint",
-    "type": "prompt",
-    "description": "Scaffolds a complete REST API endpoint with validation, error handling, and tests.",
-    "content": "Create a REST API endpoint for [resource] with the following:\n- HTTP method: [GET/POST/PUT/DELETE]\n- Request validation using Zod or Joi\n- Proper error handling with status codes\n- Integration tests\n- OpenAPI/Swagger documentation",
+    "id": "spec-driven-feature",
+    "title": "Spec-driven feature development",
+    "type": "skill",
+    "description": "Create a detailed spec first, get approval, then implement. Ona breaks down complex features into reviewable steps before writing code.",
+    "content": "I need to build [feature description].\n\nFirst, create a spec.md with:\n- Problem statement and user impact\n- Technical approach and architecture decisions\n- API contracts and data models\n- Edge cases and error handling\n- Testing strategy\n\nWait for my approval before implementing. Once approved, implement the feature following the spec exactly, with tests and documentation.",
     "tags": {
       "category": "code-development",
       "persona": ["developer", "tech-lead"],
       "complexity": "intermediate"
     },
     "requirements": [],
-    "exampleOutput": "Created /api/users endpoint with POST handler, validation schema, and test file",
+    "exampleOutput": "Created spec.md with 5 sections. Awaiting approval. [After approval] Implemented feature with 12 files, 94% test coverage.",
     "featured": true
   },
   {
-    "id": "review-pr-security",
-    "title": "Security-focused PR review",
-    "type": "prompt",
-    "description": "Reviews pull request changes for security vulnerabilities, injection risks, and auth issues.",
-    "content": "Review this PR for security issues. Check for:\n- SQL/NoSQL injection vulnerabilities\n- XSS and CSRF risks\n- Authentication/authorization bypasses\n- Sensitive data exposure\n- Insecure dependencies\n- Hardcoded secrets or credentials\n\nProvide specific line references and remediation steps.",
-    "tags": {
-      "category": "code-review",
-      "persona": ["developer", "security-engineer"],
-      "complexity": "advanced"
-    },
-    "requirements": [],
-    "exampleOutput": "Found 3 issues: SQL injection on line 45, missing CSRF token on form, exposed API key in config",
-    "featured": true
-  },
-  {
-    "id": "performance-review",
-    "title": "Performance optimization review",
-    "type": "prompt",
-    "description": "Analyzes code for performance bottlenecks and suggests optimizations.",
-    "content": "Review this code for performance issues. Analyze:\n- Time complexity of algorithms\n- Memory usage and potential leaks\n- Database query efficiency (N+1 problems)\n- Unnecessary re-renders (React)\n- Bundle size impact\n\nSuggest specific optimizations with before/after examples.",
-    "tags": {
-      "category": "code-review",
-      "persona": ["developer", "tech-lead"],
-      "complexity": "advanced"
-    },
-    "requirements": [],
-    "exampleOutput": "Found N+1 query in user loader. Suggested: Use DataLoader pattern to batch queries.",
-    "featured": false
-  },
-  {
-    "id": "debug-stack-trace",
-    "title": "Analyze error stack trace",
-    "type": "prompt",
-    "description": "Interprets error stack traces and identifies root cause with fix suggestions.",
-    "content": "Analyze this error stack trace and help me understand:\n1. What is the root cause?\n2. Which file/line is the actual source of the error?\n3. What are possible fixes?\n4. How can I prevent this in the future?\n\n[Paste stack trace here]",
-    "tags": {
-      "category": "debugging",
-      "persona": ["developer"],
-      "complexity": "beginner"
-    },
-    "requirements": [],
-    "exampleOutput": "Root cause: Null reference at UserService.ts:23. The user object is undefined when accessed. Fix: Add null check before accessing user.email",
-    "featured": false
-  },
-  {
-    "id": "find-failing-test-cause",
-    "title": "Debug failing test",
-    "type": "prompt",
-    "description": "Investigates why a test is failing and provides targeted fixes.",
-    "content": "This test is failing: [test name]\n\nError message: [paste error]\n\nHelp me understand:\n1. Why is this test failing?\n2. Is it a test issue or a code issue?\n3. What's the minimal fix?\n4. Are there related tests that might also be affected?",
-    "tags": {
-      "category": "debugging",
-      "persona": ["developer"],
-      "complexity": "intermediate"
-    },
-    "requirements": [],
-    "exampleOutput": "Test fails because mock doesn't match new API response shape. Update mock to include 'metadata' field.",
-    "featured": false
-  },
-  {
-    "id": "linear-issue-from-code",
-    "title": "Create Linear issue from code",
-    "type": "prompt",
-    "description": "Creates a Linear issue with context extracted from the current code file or error.",
-    "content": "Create a Linear issue for this problem:\n- Extract relevant context from the current file\n- Set appropriate priority based on severity\n- Add relevant labels\n- Link to the file/line in the repository\n- Suggest an assignee based on git blame",
+    "id": "linear-sprint-standup",
+    "title": "Generate sprint standup from Linear",
+    "type": "tool",
+    "description": "Pull your assigned issues from Linear and generate a formatted standup update with blockers and progress.",
+    "content": "Check Linear for my assigned issues in the current sprint.\n\nGenerate a standup update with:\n- What I completed yesterday (issues moved to Done)\n- What I'm working on today (In Progress issues)\n- Any blockers (issues with blocker labels or stale for 3+ days)\n\nFormat it for Slack with issue links.",
     "tags": {
       "category": "project-management",
-      "persona": ["developer", "tech-lead"],
-      "complexity": "beginner"
-    },
-    "requirements": ["Linear integration configured"],
-    "exampleOutput": "Created issue DEV-456: 'Fix null pointer in UserService' with High priority, assigned to @john",
-    "featured": true
-  },
-  {
-    "id": "generate-readme",
-    "title": "Generate README from codebase",
-    "type": "prompt",
-    "description": "Analyzes the codebase and generates a comprehensive README with setup instructions.",
-    "content": "Analyze this codebase and generate a README.md that includes:\n- Project description and purpose\n- Tech stack and dependencies\n- Installation and setup instructions\n- Environment variables needed\n- Available scripts/commands\n- Project structure overview\n- Contributing guidelines",
-    "tags": {
-      "category": "documentation",
-      "persona": ["developer", "tech-lead"],
-      "complexity": "beginner"
-    },
-    "requirements": [],
-    "exampleOutput": "Generated README.md with 8 sections covering setup, usage, and contribution guidelines",
-    "featured": false
-  },
-  {
-    "id": "explain-function",
-    "title": "Explain complex function",
-    "type": "prompt",
-    "description": "Provides a detailed explanation of what a function does, including edge cases.",
-    "content": "Explain this function in detail:\n- What is its purpose?\n- What are the inputs and outputs?\n- What are the edge cases?\n- Are there any side effects?\n- What's the time/space complexity?\n- How could it be improved?",
-    "tags": {
-      "category": "documentation",
       "persona": ["developer"],
       "complexity": "beginner"
     },
-    "requirements": [],
-    "exampleOutput": "This function implements a debounced search. It delays API calls by 300ms to reduce server load...",
-    "featured": false
-  },
-  {
-    "id": "migrate-jest-vitest",
-    "title": "Migrate Jest to Vitest",
-    "type": "skill",
-    "description": "Automated migration from Jest to Vitest testing framework with config and test updates.",
-    "content": "Migrate this project from Jest to Vitest:\n1. Update package.json dependencies\n2. Create vitest.config.ts\n3. Update test files to use Vitest syntax\n4. Migrate Jest mocks to Vitest equivalents\n5. Update CI/CD configuration\n6. Run all tests to verify migration",
-    "tags": {
-      "category": "migrations",
-      "persona": ["developer", "tech-lead"],
-      "complexity": "intermediate"
-    },
-    "requirements": [],
-    "exampleOutput": "Migrated 45 test files, updated config, all 128 tests passing",
+    "requirements": ["Linear integration"],
+    "exampleOutput": "Yesterday: Completed DEV-234 (auth fix), DEV-245 (API endpoint)\nToday: Working on DEV-256 (dashboard redesign)\nBlockers: DEV-267 waiting on design review",
     "featured": true
   },
   {
-    "id": "upgrade-react-18",
-    "title": "Upgrade React 17 to 18",
-    "type": "skill",
-    "description": "Handles React 18 upgrade including concurrent features and breaking changes.",
-    "content": "Upgrade this React 17 project to React 18:\n1. Update react and react-dom packages\n2. Migrate to createRoot API\n3. Update TypeScript types\n4. Fix StrictMode double-render issues\n5. Identify components that need Suspense boundaries\n6. Update testing utilities for React 18\n7. Document any breaking changes found",
+    "id": "sentry-error-investigation",
+    "title": "Investigate Sentry error and fix",
+    "type": "tool",
+    "description": "Pull error details from Sentry, trace to source code, identify root cause, and create a fix with tests.",
+    "content": "Investigate Sentry issue [ISSUE_ID or paste error].\n\n1. Pull the full stack trace and error context from Sentry\n2. Find the source code location and recent changes (git blame)\n3. Identify the root cause\n4. Create a fix with appropriate error handling\n5. Add a regression test\n6. Create a PR with the fix",
     "tags": {
-      "category": "migrations",
-      "persona": ["developer", "tech-lead"],
-      "complexity": "advanced"
+      "category": "debugging",
+      "persona": ["developer", "devops"],
+      "complexity": "intermediate"
     },
-    "requirements": [],
-    "exampleOutput": "Upgraded to React 18.2, migrated 12 components, added 3 Suspense boundaries",
-    "featured": false
+    "requirements": ["Sentry integration"],
+    "exampleOutput": "Sentry issue PROJ-1234: NullPointerException in UserService.ts:45. Root cause: user.profile accessed before null check. Created PR #567 with fix and test.",
+    "featured": true
   },
   {
-    "id": "fix-vulnerable-deps",
-    "title": "Fix vulnerable dependencies",
+    "id": "pr-review-enterprise",
+    "title": "Enterprise code review with standards",
     "type": "prompt",
-    "description": "Identifies and fixes security vulnerabilities in project dependencies.",
-    "content": "Scan dependencies for security vulnerabilities and fix them:\n1. Run npm audit / yarn audit\n2. Identify high and critical vulnerabilities\n3. Determine safe upgrade paths\n4. Update dependencies with minimal breaking changes\n5. Run tests to verify nothing broke\n6. Document any manual interventions needed",
+    "description": "Review PR against your team's coding standards, security policies, and architectural guidelines. Ona uses your team's specs for consistent reviews.",
+    "content": "Review this PR following our team standards:\n\n1. Check against our coding standards in CONTRIBUTING.md\n2. Verify security best practices (no secrets, proper auth, input validation)\n3. Ensure architectural consistency with existing patterns\n4. Check test coverage meets our 80% threshold\n5. Verify documentation is updated\n6. Flag any breaking changes\n\nLeave inline comments for issues and approve if standards are met.",
     "tags": {
-      "category": "cve-remediation",
-      "persona": ["developer", "security-engineer", "devops"],
+      "category": "code-review",
+      "persona": ["developer", "tech-lead"],
       "complexity": "intermediate"
     },
     "requirements": [],
-    "exampleOutput": "Fixed 5 vulnerabilities: upgraded lodash 4.17.15 → 4.17.21, axios 0.21.0 → 1.6.0",
+    "exampleOutput": "Review complete: 2 security suggestions (line 45, 78), 1 test coverage gap, 1 doc update needed. Left inline comments.",
     "featured": false
   },
   {
-    "id": "audit-npm-packages",
-    "title": "Security audit npm packages",
-    "type": "prompt",
-    "description": "Performs deep security audit of npm packages including transitive dependencies.",
-    "content": "Perform a security audit of this project's npm packages:\n1. Check for known CVEs in all dependencies\n2. Identify packages with no recent updates (abandoned)\n3. Flag packages with suspicious install scripts\n4. Check for typosquatting risks\n5. Review permissions requested by packages\n6. Generate a security report with recommendations",
+    "id": "multi-repo-dependency-update",
+    "title": "Update dependency across all repos",
+    "type": "skill",
+    "description": "Update a specific dependency across multiple repositories in parallel, handling breaking changes and running tests.",
+    "content": "Update [package-name] from [old-version] to [new-version] across all repositories that use it.\n\nFor each repo:\n1. Check if the package is used\n2. Update the dependency\n3. Apply any migration steps from the changelog\n4. Run the test suite\n5. Create a PR if tests pass\n\nProvide a summary of all repos updated and any that failed.",
+    "tags": {
+      "category": "migrations",
+      "persona": ["tech-lead", "devops"],
+      "complexity": "advanced"
+    },
+    "requirements": ["Multi-repo access"],
+    "exampleOutput": "Updated lodash 4.17.15 to 4.17.21 across 34 repositories. 32 PRs created (tests passing), 2 repos need manual migration (breaking changes in date handling).",
+    "featured": false
+  },
+  {
+    "id": "cve-remediation-parallel",
+    "title": "Remediate CVE across codebase",
+    "type": "skill",
+    "description": "Scan for a specific CVE, patch affected repos in parallel, run tests, and create PRs. Goes beyond bumping versions to actually migrate code.",
+    "content": "Remediate [CVE-ID] across all affected repositories.\n\n1. Scan all repos for the vulnerable package/version\n2. For each affected repo:\n   - Update to the patched version\n   - Apply any required code migrations\n   - Run the full test suite\n   - Create a PR with detailed changelog\n3. Generate a compliance report of all remediations",
     "tags": {
       "category": "cve-remediation",
       "persona": ["security-engineer", "devops"],
       "complexity": "advanced"
     },
-    "requirements": [],
-    "exampleOutput": "Audit complete: 2 critical CVEs, 3 abandoned packages, 1 suspicious postinstall script",
+    "requirements": ["Multi-repo access"],
+    "exampleOutput": "CVE-2024-1234 remediated in 47 repositories. 45 PRs created (auto-mergeable), 2 require manual review (breaking API changes). Compliance report generated.",
     "featured": false
   },
   {
-    "id": "setup-cicd-pipeline",
-    "title": "Set up CI/CD pipeline",
+    "id": "java-version-migration",
+    "title": "Migrate Java 8 to Java 17",
     "type": "skill",
-    "description": "Creates a complete CI/CD pipeline with testing, linting, and deployment stages.",
-    "content": "Set up a CI/CD pipeline for this project:\n1. Create GitHub Actions workflow (or GitLab CI/Jenkins)\n2. Add linting and type-checking stage\n3. Add unit and integration test stages\n4. Add build stage with caching\n5. Add deployment stage with environment variables\n6. Configure branch protection rules\n7. Add status badges to README",
+    "description": "Upgrade Java version across services, handling deprecated APIs, new language features, and build configuration changes.",
+    "content": "Migrate this service from Java 8 to Java 17:\n\n1. Update build.gradle/pom.xml for Java 17\n2. Replace deprecated APIs (javax to jakarta, etc.)\n3. Update to compatible library versions\n4. Apply new language features where beneficial (records, sealed classes)\n5. Update Dockerfile and CI configuration\n6. Run full test suite and fix any failures\n7. Document breaking changes",
     "tags": {
-      "category": "automations",
+      "category": "migrations",
+      "persona": ["developer", "tech-lead"],
+      "complexity": "advanced"
+    },
+    "requirements": [],
+    "exampleOutput": "Migrated to Java 17: Updated 156 files, replaced 23 deprecated APIs, updated 12 dependencies. All 234 tests passing. Created migration notes.",
+    "featured": false
+  },
+  {
+    "id": "gitlab-to-github-migration",
+    "title": "GitLab to GitHub repository migration",
+    "type": "skill",
+    "description": "Migrate repository from GitLab to GitHub including CI/CD pipelines, issues, and branch protections.",
+    "content": "Migrate this repository from GitLab to GitHub:\n\n1. Convert .gitlab-ci.yml to GitHub Actions workflows\n2. Migrate CI/CD secrets and variables\n3. Update any GitLab-specific URLs in code and docs\n4. Set up equivalent branch protection rules\n5. Configure GitHub-specific features (Dependabot, code scanning)\n6. Create migration checklist and verify all features work",
+    "tags": {
+      "category": "migrations",
       "persona": ["devops", "tech-lead"],
+      "complexity": "advanced"
+    },
+    "requirements": ["GitHub access", "GitLab access"],
+    "exampleOutput": "Migration complete: Converted 3 CI pipelines to GitHub Actions, migrated 12 secrets, updated 45 URLs. Branch protections configured. Dependabot enabled.",
+    "featured": false
+  },
+  {
+    "id": "dora-metrics-report",
+    "title": "Generate DORA metrics report",
+    "type": "tool",
+    "description": "Calculate DORA metrics (deployment frequency, lead time, MTTR, change failure rate) from your Git and CI/CD data.",
+    "content": "Generate a DORA metrics report for the last [quarter/month]:\n\n1. Deployment Frequency: Count production deployments\n2. Lead Time for Changes: Time from commit to production\n3. Mean Time to Recovery: Time to resolve incidents\n4. Change Failure Rate: Percentage of deployments causing incidents\n\nCompare to previous period and industry benchmarks. Identify areas for improvement.",
+    "tags": {
+      "category": "documentation",
+      "persona": ["tech-lead", "devops"],
+      "complexity": "intermediate"
+    },
+    "requirements": ["CI/CD access", "Incident tracking access"],
+    "exampleOutput": "Q4 DORA Report: Deployment Frequency: 12/day (Elite), Lead Time: 2.3 days (High), MTTR: 1.2 hours (Elite), Change Failure Rate: 8% (High). Recommendation: Focus on reducing lead time.",
+    "featured": false
+  },
+  {
+    "id": "observability-standardization",
+    "title": "Add observability to service",
+    "type": "prompt",
+    "description": "Add standardized logging, metrics, and tracing to a service following your organization's observability patterns.",
+    "content": "Add observability to this service following our standards:\n\n1. Structured logging with correlation IDs\n2. Prometheus metrics for key operations (latency, error rate, throughput)\n3. OpenTelemetry tracing for distributed requests\n4. Health check endpoints (/health, /ready)\n5. Dashboards and alerts configuration\n\nFollow the patterns in our observability-template repo.",
+    "tags": {
+      "category": "code-development",
+      "persona": ["developer", "devops"],
       "complexity": "intermediate"
     },
     "requirements": [],
-    "exampleOutput": "Created .github/workflows/ci.yml with lint, test, build, and deploy stages",
+    "exampleOutput": "Added observability: 12 structured log points, 8 Prometheus metrics, OpenTelemetry tracing configured, health endpoints added. Grafana dashboard template created.",
     "featured": false
   },
   {
-    "id": "create-precommit-hooks",
-    "title": "Create pre-commit hooks",
-    "type": "tool",
-    "description": "Sets up pre-commit hooks for linting, formatting, and commit message validation.",
-    "content": "Set up pre-commit hooks using Husky and lint-staged:\n1. Install husky and lint-staged\n2. Configure pre-commit hook for linting\n3. Configure pre-commit hook for formatting (Prettier)\n4. Add commit message validation (Commitlint)\n5. Add pre-push hook for tests\n6. Document the hooks in README",
+    "id": "api-client-generation",
+    "title": "Generate typed API client from OpenAPI",
+    "type": "prompt",
+    "description": "Generate a fully typed API client from an OpenAPI spec with error handling, retries, and authentication.",
+    "content": "Generate a TypeScript API client from this OpenAPI spec:\n\n1. Create typed request/response interfaces\n2. Implement all endpoints with proper HTTP methods\n3. Add authentication header injection\n4. Include retry logic with exponential backoff\n5. Add request/response logging\n6. Generate usage examples and documentation",
     "tags": {
-      "category": "automations",
-      "persona": ["developer", "tech-lead"],
-      "complexity": "beginner"
+      "category": "code-development",
+      "persona": ["developer"],
+      "complexity": "intermediate"
     },
     "requirements": [],
-    "exampleOutput": "Installed husky, configured lint-staged for .ts/.tsx files, added commitlint",
+    "exampleOutput": "Generated ApiClient with 24 typed endpoints, auth middleware, retry logic (3 attempts, exponential backoff), and JSDoc documentation.",
     "featured": false
   },
   {
-    "id": "linear-task-management",
-    "title": "Linear task management",
+    "id": "incident-postmortem",
+    "title": "Generate incident postmortem",
     "type": "tool",
-    "description": "Query and update Linear issues to track completed tasks, overdue items, and sprint progress.",
-    "content": "Use the Linear integration to manage tasks:\n- Get all issues assigned to me\n- Show overdue issues in current sprint\n- List completed tasks from last week\n- Update issue status to 'Done'\n- Add a comment to an issue\n- Get sprint burndown summary",
+    "description": "Gather incident data from PagerDuty/Slack, analyze the timeline, and generate a blameless postmortem document.",
+    "content": "Generate a postmortem for incident [INCIDENT_ID]:\n\n1. Pull timeline from PagerDuty/alerting system\n2. Gather relevant Slack threads and decisions\n3. Identify root cause from logs and code changes\n4. Document impact (duration, affected users, revenue)\n5. List action items to prevent recurrence\n6. Format as our standard postmortem template",
     "tags": {
-      "category": "project-management",
-      "persona": ["developer", "tech-lead"],
-      "complexity": "beginner"
+      "category": "documentation",
+      "persona": ["devops", "tech-lead"],
+      "complexity": "intermediate"
     },
-    "requirements": ["Linear integration configured"],
-    "exampleOutput": "Found 3 overdue issues: DEV-123 (2 days), DEV-145 (1 day), DEV-167 (3 days). Completed 12 tasks last week.",
-    "featured": true
+    "requirements": ["PagerDuty integration", "Slack integration"],
+    "exampleOutput": "Postmortem generated: 45-minute outage, root cause: database connection pool exhaustion. 3 action items: increase pool size, add connection monitoring, update runbook.",
+    "featured": false
+  },
+  {
+    "id": "backstage-catalog-generation",
+    "title": "Generate Backstage catalog entries",
+    "type": "skill",
+    "description": "Analyze repositories and generate Backstage catalog-info.yaml files with accurate metadata, ownership, and dependencies.",
+    "content": "Generate Backstage catalog entries for all repositories:\n\n1. Analyze each repo's structure and purpose\n2. Identify the owning team from CODEOWNERS or git history\n3. Detect dependencies and downstream consumers\n4. Generate catalog-info.yaml with:\n   - Component metadata\n   - API definitions\n   - Documentation links\n   - Team ownership\n5. Create PRs for each repo",
+    "tags": {
+      "category": "documentation",
+      "persona": ["devops", "tech-lead"],
+      "complexity": "intermediate"
+    },
+    "requirements": ["Multi-repo access"],
+    "exampleOutput": "Generated catalog-info.yaml for 89 repositories. Identified 12 APIs, 45 services, 32 libraries. Created PRs with ownership mapped to 8 teams.",
+    "featured": false
+  },
+  {
+    "id": "compliance-audit-prep",
+    "title": "Prepare compliance audit documentation",
+    "type": "skill",
+    "description": "Gather evidence for SOC2/ISO27001 audits by documenting access controls, change management, and security practices.",
+    "content": "Prepare documentation for [SOC2/ISO27001] audit:\n\n1. Document access control policies and current permissions\n2. Generate change management evidence (PR reviews, approvals)\n3. List security scanning results and remediation status\n4. Document incident response procedures and recent incidents\n5. Verify encryption at rest and in transit\n6. Generate audit-ready report with evidence links",
+    "tags": {
+      "category": "documentation",
+      "persona": ["security-engineer", "tech-lead"],
+      "complexity": "advanced"
+    },
+    "requirements": ["Repository access", "Security tool access"],
+    "exampleOutput": "Audit prep complete: 156 PRs with required approvals, 0 critical vulnerabilities open, encryption verified on 12 services. Report generated with 45 evidence links.",
+    "featured": false
+  },
+  {
+    "id": "legacy-code-documentation",
+    "title": "Document legacy codebase",
+    "type": "prompt",
+    "description": "Analyze undocumented legacy code and generate comprehensive documentation including architecture diagrams and API docs.",
+    "content": "Document this legacy codebase:\n\n1. Analyze the code structure and identify key components\n2. Generate architecture overview with component relationships\n3. Document all public APIs with parameters and return types\n4. Identify and document business logic and domain concepts\n5. Create onboarding guide for new developers\n6. Add inline comments for complex or non-obvious code",
+    "tags": {
+      "category": "documentation",
+      "persona": ["developer", "tech-lead"],
+      "complexity": "intermediate"
+    },
+    "requirements": [],
+    "exampleOutput": "Generated: Architecture diagram (12 components), API documentation (34 endpoints), onboarding guide (8 sections), 156 inline comments added.",
+    "featured": false
+  },
+  {
+    "id": "test-coverage-improvement",
+    "title": "Improve test coverage to target",
+    "type": "prompt",
+    "description": "Analyze coverage gaps and generate tests to reach your target coverage percentage, prioritizing critical paths.",
+    "content": "Improve test coverage to [target]% (currently [current]%):\n\n1. Analyze current coverage report\n2. Identify untested critical paths (auth, payments, data mutations)\n3. Generate unit tests for uncovered functions\n4. Add integration tests for untested API endpoints\n5. Prioritize tests by risk and complexity\n6. Run full suite and verify coverage target is met",
+    "tags": {
+      "category": "code-development",
+      "persona": ["developer"],
+      "complexity": "intermediate"
+    },
+    "requirements": [],
+    "exampleOutput": "Coverage improved from 62% to 85%. Added 47 unit tests, 12 integration tests. Critical paths now at 95% coverage.",
+    "featured": false
   }
 ]

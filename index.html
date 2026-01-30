@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ona prompt library</title>
+  <title>Ona library</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,8 +25,14 @@
 
   <main class="main">
     <section class="hero">
-      <h1>Ona prompt library</h1>
-      <p class="hero-subtitle">Discover curated prompts, skills, and tools to supercharge your development workflow with Ona.</p>
+      <h1>Ona library</h1>
+      <p class="hero-subtitle">Discover prompts, automations, and commands to supercharge your development workflow with Ona.</p>
+      
+      <div class="view-toggle">
+        <button class="toggle-btn active" data-view="prompts">Prompts</button>
+        <button class="toggle-btn" data-view="automations">Automations</button>
+        <button class="toggle-btn" data-view="commands">Commands</button>
+      </div>
     </section>
 
     <section class="controls">
@@ -38,7 +44,8 @@
         <input type="text" id="search" placeholder="Search prompts, skills, and tools..." class="search-input">
       </div>
       
-      <div class="filters">
+      <!-- Prompts filters -->
+      <div class="filters" id="prompts-filters">
         <div class="filter-group">
           <label class="filter-label">Type</label>
           <select id="filter-type" class="filter-select">
@@ -50,7 +57,7 @@
         </div>
         
         <div class="filter-group">
-          <label class="filter-label">Use Case</label>
+          <label class="filter-label">Use case</label>
           <select id="filter-category" class="filter-select">
             <option value="">All use cases</option>
             <option value="code-development">Code development</option>
@@ -76,6 +83,66 @@
         </div>
         
         <button id="clear-filters" class="clear-filters-btn">Clear filters</button>
+      </div>
+      
+      <!-- Automations filters -->
+      <div class="filters hidden" id="automations-filters">
+        <div class="filter-group">
+          <label class="filter-label">Category</label>
+          <select id="filter-auto-category" class="filter-select">
+            <option value="">All categories</option>
+            <option value="security">Security</option>
+            <option value="documentation">Documentation</option>
+            <option value="dev-environment">Dev environment</option>
+            <option value="code-review">Code review</option>
+            <option value="testing">Testing</option>
+            <option value="maintenance">Maintenance</option>
+            <option value="migrations">Migrations</option>
+            <option value="code-quality">Code quality</option>
+            <option value="api-management">API management</option>
+            <option value="incident-response">Incident response</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Trigger</label>
+          <select id="filter-auto-trigger" class="filter-select">
+            <option value="">All triggers</option>
+            <option value="event">Event</option>
+            <option value="pull-request">Pull request</option>
+            <option value="scheduled">Scheduled</option>
+            <option value="manual">Manual</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Scope</label>
+          <select id="filter-auto-scope" class="filter-select">
+            <option value="">All scopes</option>
+            <option value="single-repo">Single repo</option>
+            <option value="multi-repo">Multi-repo</option>
+          </select>
+        </div>
+        
+        <button id="clear-auto-filters" class="clear-filters-btn">Clear filters</button>
+      </div>
+      
+      <!-- Commands filters -->
+      <div class="filters hidden" id="commands-filters">
+        <div class="filter-group">
+          <label class="filter-label">Category</label>
+          <select id="filter-cmd-category" class="filter-select">
+            <option value="">All categories</option>
+            <option value="code-review">Code review</option>
+            <option value="testing">Testing</option>
+            <option value="documentation">Documentation</option>
+            <option value="debugging">Debugging</option>
+            <option value="deployment">Deployment</option>
+            <option value="code-development">Code development</option>
+          </select>
+        </div>
+        
+        <button id="clear-cmd-filters" class="clear-filters-btn">Clear filters</button>
       </div>
     </section>
 

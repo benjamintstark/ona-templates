@@ -1,0 +1,152 @@
+[
+  {
+    "id": "cve-remediation-auto",
+    "title": "CVE remediation across repos",
+    "type": "automation",
+    "description": "AI engineers that remediate vulnerabilities across your entire codebase simultaneously. They don't only bump dependencies, but migrate code and run tests before creating pull requests.",
+    "content": "Trigger: CVE discovery or scheduled scan\n\nWorkflow:\n1. Scan all repositories for vulnerable dependencies\n2. Identify affected packages and severity levels\n3. Determine safe upgrade paths\n4. Apply fixes and migrate breaking changes\n5. Run test suites to verify fixes\n6. Create pull requests with detailed changelogs",
+    "tags": {
+      "category": "security",
+      "trigger": "event",
+      "scope": "multi-repo"
+    },
+    "requirements": ["GitHub/GitLab integration", "Repository access"],
+    "exampleOutput": "Remediated CVE-2024-1234 across 47 repositories. Created 47 PRs, all tests passing.",
+    "featured": true
+  },
+  {
+    "id": "readme-automation",
+    "title": "README and documentation automation",
+    "type": "automation",
+    "description": "Deploy AI engineers that enforce documentation standards organization-wide. Generate Backstage YAML, README files, and onboarding docs automatically. Keep everything current as code evolves.",
+    "content": "Trigger: Code changes or scheduled\n\nWorkflow:\n1. Analyze repository structure and code\n2. Generate or update README.md with current info\n3. Create Backstage catalog-info.yaml\n4. Generate API documentation from code\n5. Update onboarding guides\n6. Create PR with documentation changes",
+    "tags": {
+      "category": "documentation",
+      "trigger": "event",
+      "scope": "multi-repo"
+    },
+    "requirements": ["Repository access"],
+    "exampleOutput": "Updated documentation in 23 repositories. Generated 15 new README files, 23 Backstage YAML files.",
+    "featured": true
+  },
+  {
+    "id": "dev-environment-automation",
+    "title": "Dev environment standardization",
+    "type": "automation",
+    "description": "Standardize development environments across all repositories. AI engineers create consistent configs that work for human developers, AI agents, and workflows alike.",
+    "content": "Trigger: New repository or scheduled audit\n\nWorkflow:\n1. Scan repositories for dev environment configs\n2. Identify missing or outdated configurations\n3. Generate devcontainer.json with standard tooling\n4. Add consistent VS Code settings and extensions\n5. Create Docker configurations if needed\n6. Submit PRs with environment updates",
+    "tags": {
+      "category": "dev-environment",
+      "trigger": "event",
+      "scope": "multi-repo"
+    },
+    "requirements": ["Repository access"],
+    "exampleOutput": "Standardized dev environments in 89 repositories. Added devcontainer.json to 34 repos missing configs.",
+    "featured": true
+  },
+  {
+    "id": "pr-review-automation",
+    "title": "Automatic PR review",
+    "type": "automation",
+    "description": "AI engineers that automatically review every pull request for code quality, security vulnerabilities, and best practices before human review.",
+    "content": "Trigger: Pull request created or updated\n\nWorkflow:\n1. Analyze PR diff for code changes\n2. Check for security vulnerabilities\n3. Review code style and best practices\n4. Identify potential bugs or edge cases\n5. Suggest improvements with inline comments\n6. Approve or request changes based on findings",
+    "tags": {
+      "category": "code-review",
+      "trigger": "pull-request",
+      "scope": "single-repo"
+    },
+    "requirements": ["GitHub/GitLab integration"],
+    "exampleOutput": "Reviewed PR #234: Found 2 security issues, 3 style improvements. Requested changes with inline comments.",
+    "featured": false
+  },
+  {
+    "id": "test-generation-automation",
+    "title": "Automatic test generation",
+    "type": "automation",
+    "description": "Generate missing unit tests and integration tests for new code. AI engineers analyze code coverage and create tests to fill gaps.",
+    "content": "Trigger: PR created or scheduled coverage audit\n\nWorkflow:\n1. Analyze code coverage reports\n2. Identify untested functions and branches\n3. Generate unit tests for uncovered code\n4. Create integration tests for new endpoints\n5. Run generated tests to verify they pass\n6. Submit PR with new test files",
+    "tags": {
+      "category": "testing",
+      "trigger": "pull-request",
+      "scope": "single-repo"
+    },
+    "requirements": ["Test framework configured"],
+    "exampleOutput": "Generated 24 new unit tests, increased coverage from 67% to 84%.",
+    "featured": false
+  },
+  {
+    "id": "dependency-update-automation",
+    "title": "Scheduled dependency updates",
+    "type": "automation",
+    "description": "Keep dependencies up to date across all repositories with scheduled automated updates. AI engineers handle breaking changes and run tests.",
+    "content": "Trigger: Weekly schedule\n\nWorkflow:\n1. Check for outdated dependencies in all repos\n2. Prioritize updates by security and staleness\n3. Apply updates in isolated branches\n4. Migrate code for breaking changes\n5. Run full test suites\n6. Create PRs for successful updates",
+    "tags": {
+      "category": "maintenance",
+      "trigger": "scheduled",
+      "scope": "multi-repo"
+    },
+    "requirements": ["Repository access"],
+    "exampleOutput": "Updated 156 dependencies across 34 repositories. 12 required code migrations, all tests passing.",
+    "featured": false
+  },
+  {
+    "id": "migration-automation",
+    "title": "Framework migration at scale",
+    "type": "automation",
+    "description": "Migrate frameworks, libraries, or patterns across your entire codebase. AI engineers handle the tedious work of updating hundreds of files.",
+    "content": "Trigger: Manual or scheduled\n\nWorkflow:\n1. Analyze codebase for migration targets\n2. Create migration plan with priorities\n3. Apply transformations to each file\n4. Update imports and dependencies\n5. Run tests after each batch\n6. Create PRs grouped by repository",
+    "tags": {
+      "category": "migrations",
+      "trigger": "manual",
+      "scope": "multi-repo"
+    },
+    "requirements": ["Repository access"],
+    "exampleOutput": "Migrated 234 files from Jest to Vitest across 12 repositories. All 1,847 tests passing.",
+    "featured": false
+  },
+  {
+    "id": "code-standards-enforcement",
+    "title": "Code standards enforcement",
+    "type": "automation",
+    "description": "Automatically fix code style violations and enforce coding standards across all repositories without manual intervention.",
+    "content": "Trigger: PR created or scheduled\n\nWorkflow:\n1. Run linters and formatters on codebase\n2. Identify style violations and anti-patterns\n3. Auto-fix issues where possible\n4. Add inline comments for manual fixes needed\n5. Update ESLint/Prettier configs if needed\n6. Create PRs with fixes",
+    "tags": {
+      "category": "code-quality",
+      "trigger": "pull-request",
+      "scope": "multi-repo"
+    },
+    "requirements": ["Linter configuration"],
+    "exampleOutput": "Fixed 1,234 style violations across 56 repositories. Updated 12 ESLint configs to latest standards.",
+    "featured": false
+  },
+  {
+    "id": "api-versioning-automation",
+    "title": "API versioning and deprecation",
+    "type": "automation",
+    "description": "Manage API versioning across services. AI engineers update clients when APIs change and handle deprecation notices.",
+    "content": "Trigger: API schema change detected\n\nWorkflow:\n1. Detect API schema changes in services\n2. Identify all client repositories using the API\n3. Generate updated client code\n4. Add deprecation warnings for old endpoints\n5. Update API documentation\n6. Create PRs in all affected repositories",
+    "tags": {
+      "category": "api-management",
+      "trigger": "event",
+      "scope": "multi-repo"
+    },
+    "requirements": ["API schema definitions", "Repository access"],
+    "exampleOutput": "Updated 23 client repositories for API v2.3.0. Added deprecation notices for 4 endpoints.",
+    "featured": false
+  },
+  {
+    "id": "incident-response-automation",
+    "title": "Incident response automation",
+    "type": "automation",
+    "description": "When incidents occur, AI engineers automatically gather context, identify potential causes, and prepare hotfix branches.",
+    "content": "Trigger: PagerDuty/Opsgenie alert\n\nWorkflow:\n1. Receive incident alert with error details\n2. Search codebase for related code\n3. Analyze recent deployments and changes\n4. Identify potential root causes\n5. Prepare hotfix branch with suggested fixes\n6. Notify on-call engineer with context",
+    "tags": {
+      "category": "incident-response",
+      "trigger": "event",
+      "scope": "single-repo"
+    },
+    "requirements": ["Alerting integration", "Repository access"],
+    "exampleOutput": "Incident INC-456: Identified null pointer in UserService.ts:234. Hotfix branch ready with fix.",
+    "featured": false
+  }
+]

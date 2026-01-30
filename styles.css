@@ -110,6 +110,37 @@ body {
   margin: 0 auto;
 }
 
+/* View Toggle */
+.view-toggle {
+  display: inline-flex;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 0.25rem;
+  margin-top: 1.5rem;
+}
+
+.toggle-btn {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggle-btn:hover {
+  color: var(--color-text);
+}
+
+.toggle-btn.active {
+  background: var(--color-bg);
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+}
+
 /* Controls */
 .controls {
   margin-bottom: 2rem;
@@ -306,6 +337,194 @@ body {
 
 .badge-tool.clickable-type:hover {
   background: var(--color-tool);
+  color: white;
+}
+
+/* Automation badges */
+.badge-trigger {
+  background: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
+}
+
+.clickable-auto-category,
+.clickable-trigger {
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.clickable-trigger:hover {
+  background: #6366f1;
+  color: white;
+}
+
+/* Category-specific colors for automations */
+.badge-auto-category[data-category="security"] {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+.badge-auto-category[data-category="security"]:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.badge-auto-category[data-category="incident-response"] {
+  background: rgba(249, 115, 22, 0.1);
+  color: #f97316;
+}
+.badge-auto-category[data-category="incident-response"]:hover {
+  background: #f97316;
+  color: white;
+}
+
+.badge-auto-category[data-category="migrations"] {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+.badge-auto-category[data-category="migrations"]:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+.badge-auto-category[data-category="documentation"] {
+  background: rgba(168, 85, 247, 0.1);
+  color: #a855f7;
+}
+.badge-auto-category[data-category="documentation"]:hover {
+  background: #a855f7;
+  color: white;
+}
+
+.badge-auto-category[data-category="dev-environment"] {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+.badge-auto-category[data-category="dev-environment"]:hover {
+  background: #22c55e;
+  color: white;
+}
+
+.badge-auto-category[data-category="code-review"] {
+  background: rgba(14, 165, 233, 0.1);
+  color: #0ea5e9;
+}
+.badge-auto-category[data-category="code-review"]:hover {
+  background: #0ea5e9;
+  color: white;
+}
+
+.badge-auto-category[data-category="testing"] {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+.badge-auto-category[data-category="testing"]:hover {
+  background: #10b981;
+  color: white;
+}
+
+.badge-auto-category[data-category="maintenance"] {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+}
+.badge-auto-category[data-category="maintenance"]:hover {
+  background: #6b7280;
+  color: white;
+}
+
+.badge-auto-category[data-category="code-quality"] {
+  background: rgba(236, 72, 153, 0.1);
+  color: #ec4899;
+}
+.badge-auto-category[data-category="code-quality"]:hover {
+  background: #ec4899;
+  color: white;
+}
+
+.badge-auto-category[data-category="api-management"] {
+  background: rgba(6, 182, 212, 0.1);
+  color: #06b6d4;
+}
+.badge-auto-category[data-category="api-management"]:hover {
+  background: #06b6d4;
+  color: white;
+}
+
+/* Automation card accent */
+.card-automation {
+  border-left: 3px solid #10b981;
+}
+
+/* Command card styles */
+.card-command {
+  border-left: 3px solid #8b5cf6;
+}
+
+.badge-cmd-category {
+  background: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
+}
+
+.clickable-cmd-category {
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.clickable-cmd-category:hover {
+  background: #8b5cf6;
+  color: white;
+}
+
+/* Command category-specific colors */
+.badge-cmd-category[data-category="code-review"] {
+  background: rgba(14, 165, 233, 0.1);
+  color: #0ea5e9;
+}
+.badge-cmd-category[data-category="code-review"]:hover {
+  background: #0ea5e9;
+  color: white;
+}
+
+.badge-cmd-category[data-category="testing"] {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+.badge-cmd-category[data-category="testing"]:hover {
+  background: #10b981;
+  color: white;
+}
+
+.badge-cmd-category[data-category="documentation"] {
+  background: rgba(168, 85, 247, 0.1);
+  color: #a855f7;
+}
+.badge-cmd-category[data-category="documentation"]:hover {
+  background: #a855f7;
+  color: white;
+}
+
+.badge-cmd-category[data-category="debugging"] {
+  background: rgba(249, 115, 22, 0.1);
+  color: #f97316;
+}
+.badge-cmd-category[data-category="debugging"]:hover {
+  background: #f97316;
+  color: white;
+}
+
+.badge-cmd-category[data-category="deployment"] {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+.badge-cmd-category[data-category="deployment"]:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+.badge-cmd-category[data-category="code-development"] {
+  background: rgba(236, 72, 153, 0.1);
+  color: #ec4899;
+}
+.badge-cmd-category[data-category="code-development"]:hover {
+  background: #ec4899;
   color: white;
 }
 

@@ -1,0 +1,152 @@
+[
+  {
+    "id": "review-like-mads",
+    "title": "/review-like-mads",
+    "command": "review-like-mads",
+    "type": "command",
+    "description": "Code review with a senior engineer's perspective - design system first, aggressive cleanup, technical excellence.",
+    "content": "You are reviewing code changes with Mads Hartmann's perspective. Apply his review philosophy systematically:\n\n## Design System First\n- **Theme compatibility**: Works in light/dark AND old/new themes?\n- **Semantic tokens**: Replace hardcoded colors with `border-subtle`, `surface-glass`\n- **Visual evidence**: Request screenshots/videos if missing\n- **Design alignment**: Matches Figma specs?\n\n## Aggressive Cleanup\n- **Remove unused**: Components, imports, files, commented code\n- **Consolidate**: Similar components that could be unified\n- **File organization**: Components in right locations?\n\n## Technical Excellence\n- **React patterns**: Proper `forwardRef`, `useImperativeHandle`, TypeScript\n- **Component reuse**: Composing existing vs creating new\n- **Accessibility**: ARIA, keyboard nav, screen readers\n\n## Red Flags\n- Hardcoded colors (`#fff`, `rgb()`)\n- Duplicate patterns\n- Missing visual docs\n- Poor TypeScript\n\n**Priority order**: Design system consistency → Code cleanliness → Component reusability → Technical implementation → Test coverage",
+    "tags": {
+      "category": "code-review",
+      "scope": "organization"
+    },
+    "requirements": [],
+    "exampleOutput": "Review complete: Found 3 hardcoded colors, 2 unused imports, missing forwardRef on Button component. Suggested consolidating CardHeader and CardTitle.",
+    "featured": true
+  },
+  {
+    "id": "security-review",
+    "title": "/security-review",
+    "command": "security-review",
+    "type": "command",
+    "description": "Your security team's checklist for reviewing PRs - authentication, authorization, input validation, and secrets.",
+    "content": "Review this code for security vulnerabilities using our security team's checklist:\n\n## Authentication & Authorization\n- [ ] Auth checks on all protected routes\n- [ ] Token validation and expiration\n- [ ] Role-based access control properly enforced\n- [ ] No privilege escalation paths\n\n## Input Validation\n- [ ] All user input sanitized\n- [ ] SQL/NoSQL injection prevention\n- [ ] XSS prevention (output encoding)\n- [ ] File upload validation (type, size, content)\n\n## Secrets & Configuration\n- [ ] No hardcoded secrets or API keys\n- [ ] Secrets loaded from environment/vault\n- [ ] Sensitive data not logged\n- [ ] PII handled according to policy\n\n## Dependencies\n- [ ] No known vulnerable dependencies\n- [ ] Dependencies from trusted sources\n- [ ] Lock files updated\n\nFlag any issues as CRITICAL, HIGH, MEDIUM, or LOW with specific line references.",
+    "tags": {
+      "category": "code-review",
+      "scope": "organization"
+    },
+    "requirements": [],
+    "exampleOutput": "CRITICAL: Hardcoded API key on line 45. HIGH: Missing input validation on user email field (line 78). MEDIUM: Outdated axios version with known CVE.",
+    "featured": true
+  },
+  {
+    "id": "write-tests",
+    "title": "/write-tests",
+    "command": "write-tests",
+    "type": "command",
+    "description": "Write tests that actually catch bugs - behavior-focused, edge cases covered, no coverage theater.",
+    "content": "Write tests for this code following our testing philosophy:\n\n## Test Behavior, Not Implementation\n- Test what the code does, not how it does it\n- Tests should survive refactoring\n- Avoid testing private methods directly\n\n## Cover the Important Paths\n1. Happy path - normal successful operation\n2. Edge cases - empty inputs, boundaries, nulls\n3. Error cases - what should fail and how\n4. Integration points - API calls, database operations\n\n## Test Quality Checklist\n- [ ] Each test has a clear, descriptive name\n- [ ] Tests are independent (no shared state)\n- [ ] Mocks are minimal and realistic\n- [ ] Assertions are specific (not just \"no error\")\n\n## Anti-patterns to Avoid\n- Testing implementation details\n- Tests that always pass\n- Excessive mocking that hides bugs\n- Coverage theater (tests that hit lines but don't verify behavior)\n\nGenerate tests with clear arrange/act/assert structure.",
+    "tags": {
+      "category": "testing",
+      "scope": "organization"
+    },
+    "requirements": [],
+    "exampleOutput": "Generated 8 tests: 2 happy path, 3 edge cases (empty array, null user, max length), 3 error cases (network failure, invalid token, rate limit).",
+    "featured": true
+  },
+  {
+    "id": "explain-this",
+    "title": "/explain-this",
+    "command": "explain-this",
+    "type": "command",
+    "description": "Explain code with context - what it does, why it exists, and how it fits into the larger system.",
+    "content": "Explain this code clearly and thoroughly:\n\n## What It Does\n- Describe the functionality in plain language\n- Explain inputs, outputs, and side effects\n- Note any non-obvious behavior\n\n## Why It Exists\n- What problem does this solve?\n- What would break without it?\n- Any historical context from git history?\n\n## How It Works\n- Walk through the logic step by step\n- Explain any algorithms or patterns used\n- Note performance characteristics\n\n## How It Fits\n- What calls this code?\n- What does this code depend on?\n- How does it relate to the broader system?\n\n## Gotchas\n- Edge cases to be aware of\n- Common mistakes when modifying\n- Any technical debt or known issues\n\nUse clear language. Assume the reader is a competent developer unfamiliar with this specific code.",
+    "tags": {
+      "category": "documentation",
+      "scope": "organization"
+    },
+    "requirements": [],
+    "exampleOutput": "This is a rate limiter using the token bucket algorithm. It allows 100 requests per minute per user, with burst capacity of 20...",
+    "featured": false
+  },
+  {
+    "id": "debug-strategy",
+    "title": "/debug-strategy",
+    "command": "debug-strategy",
+    "type": "command",
+    "description": "Senior engineer's systematic approach to debugging - reproduce, isolate, understand, fix, verify.",
+    "content": "Apply a systematic debugging strategy:\n\n## 1. Reproduce\n- Can you reliably reproduce the issue?\n- What are the exact steps?\n- What environment (dev/staging/prod)?\n- Collect error messages, logs, stack traces\n\n## 2. Isolate\n- When did this start happening? (check recent deploys)\n- Does it affect all users or specific ones?\n- Which component is failing? (narrow down)\n- Create minimal reproduction case\n\n## 3. Understand\n- Read the code path carefully\n- Check recent changes (git log, blame)\n- Add logging/debugging to trace execution\n- Form a hypothesis about root cause\n\n## 4. Fix\n- Address root cause, not symptoms\n- Consider edge cases your fix might affect\n- Write a test that would have caught this\n- Keep the fix minimal and focused\n\n## 5. Verify\n- Confirm fix resolves the original issue\n- Check for regressions\n- Test edge cases\n- Monitor after deploy\n\nDocument your findings for the postmortem.",
+    "tags": {
+      "category": "debugging",
+      "scope": "organization"
+    },
+    "requirements": [],
+    "exampleOutput": "Reproduced: Issue occurs when user has > 100 items. Isolated to pagination logic in fetchItems(). Root cause: off-by-one error on line 234. Fix: Change < to <= in loop condition.",
+    "featured": false
+  },
+  {
+    "id": "deploy-checklist",
+    "title": "/deploy-checklist",
+    "command": "deploy-checklist",
+    "type": "command",
+    "description": "Everything to verify before shipping - tests, migrations, feature flags, rollback plan.",
+    "content": "Pre-deployment checklist:\n\n## Code Quality\n- [ ] All tests passing\n- [ ] No linting errors\n- [ ] Code reviewed and approved\n- [ ] No console.logs or debug code\n\n## Database\n- [ ] Migrations tested on staging\n- [ ] Migrations are reversible\n- [ ] No breaking schema changes without migration plan\n- [ ] Indexes added for new queries\n\n## Feature Flags\n- [ ] New features behind flags\n- [ ] Flag defaults are safe (off)\n- [ ] Rollout plan documented\n\n## Dependencies\n- [ ] No new critical vulnerabilities\n- [ ] Lock files committed\n- [ ] Breaking changes in deps addressed\n\n## Monitoring\n- [ ] Alerts configured for new endpoints\n- [ ] Dashboards updated\n- [ ] Log levels appropriate\n\n## Rollback Plan\n- [ ] Rollback procedure documented\n- [ ] Database rollback tested\n- [ ] Feature flags can disable new code\n- [ ] On-call notified of deploy\n\n## Final Checks\n- [ ] Staging tested end-to-end\n- [ ] Performance acceptable\n- [ ] Documentation updated",
+    "tags": {
+      "category": "deployment",
+      "scope": "organization"
+    },
+    "requirements": [],
+    "exampleOutput": "Checklist complete: All items passed. Ready to deploy. Rollback: Revert commit abc123, run migration down, disable feature flag 'new-checkout'.",
+    "featured": false
+  },
+  {
+    "id": "pr-description",
+    "title": "/pr-description",
+    "command": "pr-description",
+    "type": "command",
+    "description": "Generate a clear PR description with context, changes, testing, and screenshots.",
+    "content": "Generate a PR description following our template:\n\n## Summary\nOne paragraph explaining what this PR does and why.\n\n## Problem\nWhat issue does this solve? Link to ticket/issue.\n\n## Solution\nHow does this PR solve the problem? Key technical decisions.\n\n## Changes\n- List of specific changes made\n- Organized by area (API, UI, Database, etc.)\n\n## Testing\n- How was this tested?\n- Test cases covered\n- Edge cases verified\n\n## Screenshots/Videos\n(If UI changes, include before/after)\n\n## Checklist\n- [ ] Tests added/updated\n- [ ] Documentation updated\n- [ ] No breaking changes (or migration plan included)\n- [ ] Reviewed for security implications\n\n## Rollback\nHow to rollback if issues arise.\n\nKeep it concise but complete. Reviewers should understand the change without reading all the code.",
+    "tags": {
+      "category": "documentation",
+      "scope": "organization"
+    },
+    "requirements": [],
+    "exampleOutput": "## Summary\nAdds rate limiting to the /api/search endpoint to prevent abuse...",
+    "featured": false
+  },
+  {
+    "id": "refactor-safely",
+    "title": "/refactor-safely",
+    "command": "refactor-safely",
+    "type": "command",
+    "description": "Refactor code without breaking things - characterization tests, small steps, continuous verification.",
+    "content": "Refactor this code safely using these principles:\n\n## Before Refactoring\n1. Ensure comprehensive test coverage exists\n2. If tests are missing, write characterization tests first\n3. Commit current state as baseline\n4. Identify the specific improvement goal\n\n## During Refactoring\n1. Make one small change at a time\n2. Run tests after each change\n3. Commit frequently (every working state)\n4. Keep behavior identical - no feature changes\n\n## Refactoring Techniques\n- Extract Method: Pull out reusable logic\n- Rename: Make names reflect purpose\n- Inline: Remove unnecessary indirection\n- Extract Class: Separate responsibilities\n- Replace Conditional with Polymorphism\n\n## Red Flags to Fix\n- Long methods (> 20 lines)\n- Deep nesting (> 3 levels)\n- Duplicate code\n- God classes\n- Primitive obsession\n\n## After Refactoring\n1. All original tests still pass\n2. No behavior changes (unless intentional)\n3. Code is measurably better (fewer lines, clearer names, etc.)\n4. Document what was improved and why",
+    "tags": {
+      "category": "code-development",
+      "scope": "organization"
+    },
+    "requirements": [],
+    "exampleOutput": "Refactored UserService: Extracted 3 methods, renamed 5 variables for clarity, reduced cyclomatic complexity from 12 to 4. All 23 tests passing.",
+    "featured": false
+  },
+  {
+    "id": "api-design",
+    "title": "/api-design",
+    "command": "api-design",
+    "type": "command",
+    "description": "Design REST APIs following best practices - consistent naming, proper status codes, versioning.",
+    "content": "Design this API following our standards:\n\n## URL Structure\n- Use nouns, not verbs: `/users` not `/getUsers`\n- Plural for collections: `/users`, `/orders`\n- Nested for relationships: `/users/{id}/orders`\n- Use kebab-case: `/user-profiles`\n\n## HTTP Methods\n- GET: Read (idempotent)\n- POST: Create\n- PUT: Full update (idempotent)\n- PATCH: Partial update\n- DELETE: Remove (idempotent)\n\n## Status Codes\n- 200: Success\n- 201: Created\n- 204: No Content (successful DELETE)\n- 400: Bad Request (validation error)\n- 401: Unauthorized (no/invalid auth)\n- 403: Forbidden (valid auth, no permission)\n- 404: Not Found\n- 409: Conflict (duplicate, version mismatch)\n- 500: Server Error\n\n## Response Format\n- Consistent envelope: `{ data, meta, errors }`\n- Pagination: `{ data, meta: { page, perPage, total } }`\n- Errors: `{ errors: [{ code, message, field }] }`\n\n## Versioning\n- URL prefix: `/v1/users`\n- Document breaking changes\n- Support previous version during migration",
+    "tags": {
+      "category": "code-development",
+      "scope": "organization"
+    },
+    "requirements": [],
+    "exampleOutput": "Designed /v1/orders API: GET /orders (list), POST /orders (create), GET /orders/{id}, PATCH /orders/{id}, DELETE /orders/{id}. Includes pagination and filtering.",
+    "featured": false
+  },
+  {
+    "id": "onboard-to-repo",
+    "title": "/onboard-to-repo",
+    "command": "onboard-to-repo",
+    "type": "command",
+    "description": "Get up to speed on a new repository - architecture, key files, how to run and test.",
+    "content": "Help me understand this repository:\n\n## Overview\n- What does this project do?\n- Who uses it and how?\n- What's the tech stack?\n\n## Architecture\n- High-level structure (monolith, microservices, etc.)\n- Key directories and their purposes\n- Important files to know about\n- Data flow through the system\n\n## Getting Started\n- How to set up local development\n- Required environment variables\n- How to run the application\n- How to run tests\n\n## Key Concepts\n- Domain terminology\n- Important abstractions\n- Patterns used throughout\n\n## Common Tasks\n- How to add a new feature\n- How to add a new API endpoint\n- How to add a new database migration\n- How to deploy\n\n## Gotchas\n- Non-obvious things that trip people up\n- Known issues or technical debt\n- Things that look wrong but are intentional",
+    "tags": {
+      "category": "documentation",
+      "scope": "organization"
+    },
+    "requirements": [],
+    "exampleOutput": "This is a Node.js/Express API for order management. Key dirs: /src/routes (API), /src/services (business logic), /src/models (database). Run with `npm run dev`, test with `npm test`.",
+    "featured": false
+  }
+]
