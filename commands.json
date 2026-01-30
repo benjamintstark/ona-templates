@@ -1,17 +1,17 @@
 [
   {
-    "id": "review-like-mads",
-    "title": "/review-like-mads",
-    "command": "review-like-mads",
+    "id": "review-like-senior-engineer",
+    "title": "/review-like-senior-engineer",
+    "command": "review-like-senior-engineer",
     "type": "command",
     "description": "Code review with a senior engineer's perspective - design system first, aggressive cleanup, technical excellence.",
-    "content": "You are reviewing code changes with Mads Hartmann's perspective. Apply his review philosophy systematically:\n\n## Design System First\n- **Theme compatibility**: Works in light/dark AND old/new themes?\n- **Semantic tokens**: Replace hardcoded colors with `border-subtle`, `surface-glass`\n- **Visual evidence**: Request screenshots/videos if missing\n- **Design alignment**: Matches Figma specs?\n\n## Aggressive Cleanup\n- **Remove unused**: Components, imports, files, commented code\n- **Consolidate**: Similar components that could be unified\n- **File organization**: Components in right locations?\n\n## Technical Excellence\n- **React patterns**: Proper `forwardRef`, `useImperativeHandle`, TypeScript\n- **Component reuse**: Composing existing vs creating new\n- **Accessibility**: ARIA, keyboard nav, screen readers\n\n## Red Flags\n- Hardcoded colors (`#fff`, `rgb()`)\n- Duplicate patterns\n- Missing visual docs\n- Poor TypeScript\n\n**Priority order**: Design system consistency → Code cleanliness → Component reusability → Technical implementation → Test coverage",
+    "content": "You are reviewing code changes with a senior engineer's perspective. Apply this review philosophy systematically:\n\n## Design System First\n- **Theme compatibility**: Works in light/dark AND old/new themes?\n- **Semantic tokens**: Replace hardcoded colors with `border-subtle`, `surface-glass`\n- **Visual evidence**: Request screenshots/videos if missing\n- **Design alignment**: Matches Figma specs?\n\n## Aggressive Cleanup\n- **Remove unused**: Components, imports, files, commented code\n- **Consolidate**: Similar components that could be unified\n- **File organization**: Components in right locations?\n\n## Technical Excellence\n- **React patterns**: Proper `forwardRef`, `useImperativeHandle`, TypeScript\n- **Component reuse**: Composing existing vs creating new\n- **Accessibility**: ARIA, keyboard nav, screen readers\n\n## Red Flags\n- Hardcoded colors (`#fff`, `rgb()`)\n- Duplicate patterns\n- Missing visual docs\n- Poor TypeScript\n\n**Priority order**: Design system consistency → Code cleanliness → Component reusability → Technical implementation → Test coverage",
     "tags": {
       "category": "code-review",
       "scope": "organization"
     },
     "requirements": [],
-    "exampleOutput": "Review complete: Found 3 hardcoded colors, 2 unused imports, missing forwardRef on Button component. Suggested consolidating CardHeader and CardTitle.",
+    "exampleOutput": "Review complete: Found 3 hardcoded colors, 2 unused imports, missing forwardRef on Button component. Suggested consolidating CardHeader and CardTitle components.",
     "featured": true
   },
   {
