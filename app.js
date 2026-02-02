@@ -3,7 +3,7 @@ let prompts = [];
 let automations = [];
 let commands = [];
 let filteredItems = [];
-let currentView = 'prompts';
+let currentView = 'automations';
 let selectedAutomation = null; // For automation detail view
 
 // DOM Elements
@@ -174,7 +174,7 @@ function loadFiltersFromURL() {
 function updateURL() {
   const params = new URLSearchParams();
   
-  if (currentView !== 'prompts') params.set('view', currentView);
+  if (currentView !== 'automations') params.set('view', currentView);
   if (selectedAutomation) params.set('automation', selectedAutomation.id);
   if (searchInput.value) params.set('search', searchInput.value);
   
