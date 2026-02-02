@@ -2,7 +2,9 @@
   {
     "id": "ci-migration",
     "title": "CI migration",
+    "shortDescription": "Migrate CI/CD pipelines across platforms at scale",
     "description": "Migrate CI/CD pipelines from one platform to another across your entire codebase. Ona converts pipeline configurations, updates secrets references, and validates the migration.",
+    "category": "migrations",
     "icon": "ci",
     "trigger": {
       "type": "manual",
@@ -48,7 +50,9 @@
   {
     "id": "java-cobol-migration",
     "title": "Java/COBOL migration",
+    "shortDescription": "Modernize legacy COBOL or Java to modern languages",
     "description": "Modernize legacy COBOL or Java applications by converting them to modern languages and frameworks. Ona understands business logic and preserves functionality.",
+    "category": "migrations",
     "icon": "migration",
     "trigger": {
       "type": "manual",
@@ -99,7 +103,9 @@
   {
     "id": "cobol-spec-identification",
     "title": "COBOL spec identification",
+    "shortDescription": "Extract business specs from legacy COBOL code",
     "description": "Analyze COBOL codebases to extract and document business specifications. Ona reads legacy code and produces human-readable documentation of what the system does.",
+    "category": "documentation",
     "icon": "docs",
     "trigger": {
       "type": "manual",
@@ -145,7 +151,9 @@
   {
     "id": "code-review",
     "title": "Code review",
+    "shortDescription": "Automated PR review for quality and security",
     "description": "Automatically review every pull request for code quality, security vulnerabilities, and adherence to team standards. Ona provides actionable feedback before human review.",
+    "category": "code-review",
     "icon": "review",
     "trigger": {
       "type": "pull-request",
@@ -191,7 +199,9 @@
   {
     "id": "cve-remediation",
     "title": "CVE remediation",
+    "shortDescription": "Detect and fix security vulnerabilities at scale",
     "description": "Automatically detect and fix security vulnerabilities across your entire codebase. Ona patches dependencies, migrates breaking changes, and validates fixes with tests.",
+    "category": "security",
     "icon": "security",
     "trigger": {
       "type": "scheduled",

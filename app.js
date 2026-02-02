@@ -481,6 +481,8 @@ function createAutomationCard(auto) {
         ${automationIcons[auto.icon] || automationIcons['ci']}
       </div>
       <p class="automation-card-title">${escapeHtml(auto.title)}</p>
+      <p class="automation-card-description">${escapeHtml(auto.shortDescription || '')}</p>
+      <span class="badge badge-category">${escapeHtml(formatCategory(auto.category || ''))}</span>
       <button class="btn btn-use-template" data-id="${auto.id}">
         View template
       </button>
@@ -749,6 +751,15 @@ function escapeHtml(str) {
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
+}
+
+// Helper: Format category for display
+function formatCategory(category) {
+  if (!category) return '';
+  return category
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 }
 
 // Helper: Escape attribute

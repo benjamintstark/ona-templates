@@ -514,7 +514,18 @@ body {
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-text);
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.5rem 0;
+}
+
+.automation-card-description {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 0.75rem 0;
+  line-height: 1.5;
+}
+
+.automation-card .badge-category {
+  margin-bottom: 1rem;
 }
 
 .automation-card .btn-use-template {
