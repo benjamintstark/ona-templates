@@ -830,7 +830,7 @@ body {
 
 /* Command card styles */
 .card-command {
-  border-left: 3px solid #8b5cf6;
+  /* No special border styling */
 }
 
 .badge-cmd-category {
