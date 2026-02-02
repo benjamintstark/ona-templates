@@ -453,6 +453,31 @@ body {
   border-left: 3px solid #10b981;
 }
 
+/* Commands intro */
+.commands-intro {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.commands-intro p {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.commands-intro a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.commands-intro a:hover {
+  text-decoration: underline;
+}
+
 /* Command card styles */
 .card-command {
   border-left: 3px solid #8b5cf6;
