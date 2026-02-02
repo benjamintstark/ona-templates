@@ -482,7 +482,7 @@ function createAutomationCard(auto) {
       </div>
       <p class="automation-card-title">${escapeHtml(auto.title)}</p>
       <button class="btn btn-use-template" data-id="${auto.id}">
-        Use template
+        View template
       </button>
     </article>
   `;
