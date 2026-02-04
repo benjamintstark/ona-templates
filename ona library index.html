@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)https://8080-%2D019c2a0d-773d-7adc-9647-26a60cafccc6.us-east-1-01.gitpod.dev/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ona library</title>
+  <link rel="stylesheet" href="./ona library index_files/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="./ona library index_files/css2" rel="stylesheet">
+</head>
+<body>
+  <header class="header header-compact">
+    <div class="header-content">
+      <a href="https://8080--019c2a0d-773d-7adc-9647-26a60cafccc6.us-east-1-01.gitpod.dev/" class="logo">
+        <img src="./ona library index_files/ona-wordmark-black.svg" alt="Ona" class="logo-img">
+      </a>
+      <nav class="nav">
+        <a href="https://ona.com/docs" class="nav-link">Docs</a>
+        <a href="https://ona.com/" class="nav-link btn-primary">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="hero">
+      <h1>Ona library</h1>
+      <p class="hero-subtitle">Discover automations, commands, and prompts to supercharge your development workflow with Ona.</p>
+      
+      <div class="view-toggle">
+        <button class="toggle-btn active" data-view="automations">Automations</button>
+        <button class="toggle-btn" data-view="skills">Commands &amp; Skills</button>
+      </div>
+    </section>
+
+    <section class="controls">
+      <div class="search-container">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+        <input type="text" id="search" placeholder="Search prompts, skills, and tools..." class="search-input">
+      </div>
+      
+      <!-- Skills intro -->
+      <div class="skills-intro hidden" id="skills-intro">
+        <p><strong>Commands</strong> are shortcuts you type in Ona (e.g., <code>/review</code>) to instantly run predefined prompts that codify your organization's best practices. <strong>Skills</strong> are SKILL.md files containing step-by-step workflow instructions. They enable you to teach Ona Agent best practices for specific workflows that matter to you—creating PRs, deploying to staging, writing tests in a particular style. <a href="https://ona.com/docs/ona/slash-commands#create-custom-commands" target="_blank">Create your own</a>.</p>
+      </div>
+      
+      <!-- Skills filters (commands + skills) -->
+      <div class="filters hidden" id="skills-filters">
+        <div class="filter-group">
+          <label class="filter-label">Type</label>
+          <select id="filter-type" class="filter-select">
+            <option value="">All types</option>
+            <option value="command">Command</option>
+            <option value="skill">Skill</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Category</label>
+          <select id="filter-category" class="filter-select">
+            <option value="">All categories</option>
+            <option value="code-development">Code development</option>
+            <option value="code-review">Code review</option>
+            <option value="debugging">Debugging</option>
+            <option value="deployment">Deployment</option>
+            <option value="documentation">Documentation</option>
+            <option value="migrations">Migrations</option>
+            <option value="project-management">Project management</option>
+            <option value="testing">Testing</option>
+          </select>
+        </div>
+        
+        <button id="clear-filters" class="clear-filters-btn">Clear filters</button>
+      </div>
+      
+      <!-- Automations intro -->
+      <div class="automations-intro" id="automations-intro">
+        <p><strong>Automations</strong> are end-to-end tasks that can be automated through our agent functionality, and enable engineer teams to repeatedly automate tasks of any size. Automations trigger on events (security alerts, pull requests, etc.) or can be manually scheduled. Use one of the Automation templates below, or <a href="https://app.ona.com/automations/new" target="_blank">create your own</a>.</p>
+      </div>
+      
+      <!-- Automations filters -->
+      <div class="filters" id="automations-filters">
+        <div class="filter-group">
+          <label class="filter-label">Category</label>
+          <select id="filter-auto-category" class="filter-select">
+            <option value="">All categories</option>
+            <option value="security">Security</option>
+            <option value="documentation">Documentation</option>
+            <option value="dev-environment">Dev environment</option>
+            <option value="code-review">Code review</option>
+            <option value="testing">Testing</option>
+            <option value="maintenance">Maintenance</option>
+            <option value="migrations">Migrations</option>
+            <option value="code-quality">Code quality</option>
+            <option value="api-management">API management</option>
+            <option value="incident-response">Incident response</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Trigger</label>
+          <select id="filter-auto-trigger" class="filter-select">
+            <option value="">All triggers</option>
+            <option value="event">Event</option>
+            <option value="pull-request">Pull request</option>
+            <option value="scheduled">Scheduled</option>
+            <option value="manual">Manual</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Scope</label>
+          <select id="filter-auto-scope" class="filter-select">
+            <option value="">All scopes</option>
+            <option value="single-repo">Single repo</option>
+            <option value="multi-repo">Multi-repo</option>
+          </select>
+        </div>
+        
+        <button id="clear-auto-filters" class="clear-filters-btn">Clear filters</button>
+      </div>
+      
+    </section>
+
+    <section class="featured-section hidden" id="featured-section">
+      <h2 class="section-title">Top prompts</h2>
+      <div class="featured-grid" id="featured-grid"></div>
+    </section>
+
+    <section class="all-prompts-section">
+      <h2 class="section-title" id="all-items-title">All automations</h2>
+      <div class="results-count" id="results-count">Showing 5 of 5 automations</div>
+      <div class="prompts-grid" id="prompts-grid">
+    <article class="automation-card" data-id="ci-migration">
+      <span class="card-badge badge-auto-category clickable-auto-category" data-category="migrations"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>Migrations</span>
+      <div class="automation-card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      </div>
+      <p class="automation-card-title">CI migration</p>
+      <p class="automation-card-description">Migrate CI/CD pipelines across platforms at scale</p>
+      <button class="btn btn-use-template" data-id="ci-migration">
+        View template
+      </button>
+    </article>
+  
+    <article class="automation-card" data-id="java-cobol-migration">
+      <span class="card-badge badge-auto-category clickable-auto-category" data-category="migrations"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>Migrations</span>
+      <div class="automation-card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
+      </div>
+      <p class="automation-card-title">Java/COBOL migration</p>
+      <p class="automation-card-description">Modernize legacy COBOL or Java to modern languages</p>
+      <button class="btn btn-use-template" data-id="java-cobol-migration">
+        View template
+      </button>
+    </article>
+  
+    <article class="automation-card" data-id="cobol-spec-identification">
+      <span class="card-badge badge-auto-category clickable-auto-category" data-category="documentation"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>Documentation</span>
+      <div class="automation-card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      </div>
+      <p class="automation-card-title">COBOL spec identification</p>
+      <p class="automation-card-description">Extract business specs from legacy COBOL code</p>
+      <button class="btn btn-use-template" data-id="cobol-spec-identification">
+        View template
+      </button>
+    </article>
+  
+    <article class="automation-card" data-id="code-review">
+      <span class="card-badge badge-auto-category clickable-auto-category" data-category="code-review"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>Code Review</span>
+      <div class="automation-card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+      </div>
+      <p class="automation-card-title">Code review</p>
+      <p class="automation-card-description">Automated PR review for quality and security</p>
+      <button class="btn btn-use-template" data-id="code-review">
+        View template
+      </button>
+    </article>
+  
+    <article class="automation-card" data-id="cve-remediation">
+      <span class="card-badge badge-auto-category clickable-auto-category" data-category="security"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Security</span>
+      <div class="automation-card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+      </div>
+      <p class="automation-card-title">CVE remediation</p>
+      <p class="automation-card-description">Detect and fix security vulnerabilities at scale</p>
+      <button class="btn btn-use-template" data-id="cve-remediation">
+        View template
+      </button>
+    </article>
+  </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© 2026 Ona. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="https://ona.com/docs">Docs</a>
+        <a href="https://ona.com/pricing">Pricing</a>
+        <a href="https://ona.com/contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">Copied to clipboard!</div>
+
+  <script src="./ona library index_files/app.js"></script>
+
+
+</body></html>
