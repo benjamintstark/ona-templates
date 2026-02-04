@@ -14,6 +14,7 @@
   --color-primary-hover: #1f2937;
   --color-accent: #3b82f6;
   --color-success: #10b981;
+  --color-command: #10b981;
   --color-prompt: #8b5cf6;
   --color-skill: #f59e0b;
   --color-tool: #06b6d4;
@@ -50,8 +51,16 @@ body {
   align-items: center;
 }
 
+.header-compact .header-content {
+  padding: 0.625rem 2rem;
+}
+
 .logo-img {
   height: 28px;
+}
+
+.header-compact .logo-img {
+  height: 22px;
 }
 
 .nav {
@@ -94,19 +103,19 @@ body {
 /* Hero */
 .hero {
   text-align: center;
-  padding: 3rem 0;
+  padding: 2rem 0 1.5rem;
 }
 
 .hero h1 {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .hero-subtitle {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: var(--color-text-secondary);
-  max-width: 600px;
+  max-width: 550px;
   margin: 0 auto;
 }
 
@@ -325,14 +334,43 @@ body {
   color: white;
 }
 
+.badge-command {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--color-command);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-command.clickable-type:hover {
+  background: var(--color-command);
+  color: white;
+}
+
+.badge-prompt {
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--color-prompt);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
 .badge-prompt.clickable-type:hover {
   background: var(--color-prompt);
   color: white;
 }
 
+.badge-skill {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--color-skill);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
 .badge-skill.clickable-type:hover {
   background: var(--color-skill);
   color: white;
+}
+
+.badge-tool {
+  background: rgba(6, 182, 212, 0.1);
+  color: var(--color-tool);
+  border: 1px solid rgba(6, 182, 212, 0.3);
 }
 
 .badge-tool.clickable-type:hover {
@@ -580,8 +618,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--color-text-secondary);
   background: transparent;
@@ -589,7 +627,7 @@ body {
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.2s;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .btn-back:hover {
@@ -597,40 +635,60 @@ body {
   color: var(--color-text);
 }
 
+.automation-detail-header-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .automation-detail-header-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .automation-detail-header {
   text-align: left;
-  margin-bottom: 3rem;
+}
+
+.automation-detail-header-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .automation-detail-icon {
-  width: 80px;
-  height: 80px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--color-bg-secondary);
   border-radius: 50%;
-  margin: 0 0 1.5rem 0;
   color: var(--color-text);
+  flex-shrink: 0;
 }
 
 .automation-detail-icon svg {
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
 }
 
 .automation-detail-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin: 0 0 1rem 0;
+  margin: 0;
 }
 
 .automation-detail-description {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: var(--color-text-secondary);
   max-width: 600px;
-  margin: 0 0 1.5rem 0;
-  line-height: 1.6;
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
 }
 
 .automation-detail-actions {
@@ -669,22 +727,58 @@ body {
 }
 
 .automation-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.automation-main-content {
   display: grid;
   grid-template-columns: 1fr 1.5fr;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 @media (max-width: 768px) {
-  .automation-detail-content {
+  .automation-main-content {
     grid-template-columns: 1fr;
   }
 }
 
+.automation-how-to-use {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  min-width: 280px;
+  max-width: 320px;
+}
+
+.automation-how-to-use h3 {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.how-to-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.how-to-list li {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  margin-bottom: 0.25rem;
+}
+
+.how-to-list li:last-child {
+  margin-bottom: 0;
+}
+
 .automation-benefits h3,
 .automation-workflow h3 {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 600;
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 1rem 0;
 }
 
 .benefits-list {
@@ -751,12 +845,44 @@ body {
   width: 2px;
   flex: 1;
   background: var(--color-border);
-  min-height: 40px;
+  min-height: 20px;
 }
 
 .step-content {
   flex: 1;
-  padding-bottom: 1.5rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.btn-copy-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-copy-step:hover {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
 }
 
 .step-type {
@@ -767,7 +893,6 @@ body {
   font-size: 0.75rem;
   font-weight: 500;
   border-radius: var(--radius-sm);
-  margin-bottom: 0.5rem;
 }
 
 .step-type-trigger {
@@ -803,12 +928,36 @@ body {
   line-height: 1.5;
 }
 
-/* Commands intro */
-.commands-intro {
+/* Skills intro */
+.skills-intro {
   background: var(--color-bg-secondary);
   border-radius: var(--radius-lg);
   padding: 1rem 1.25rem;
   margin-bottom: 1rem;
+}
+
+.skills-intro p {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.skills-intro code {
+  background: var(--color-bg);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+}
+
+.skills-intro a {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.skills-intro a:hover {
+  text-decoration: underline;
 }
 
 .commands-intro p {

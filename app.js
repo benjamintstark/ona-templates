@@ -2,15 +2,15 @@
 let prompts = [];
 let automations = [];
 let commands = [];
+let skills = []; // Combined prompts + commands
 let filteredItems = [];
 let currentView = 'automations';
-let selectedAutomation = null; // For automation detail view
+let selectedAutomation = null;
 
 // DOM Elements
 const searchInput = document.getElementById('search');
 const filterType = document.getElementById('filter-type');
 const filterCategory = document.getElementById('filter-category');
-const filterPersona = document.getElementById('filter-persona');
 const clearFiltersBtn = document.getElementById('clear-filters');
 
 // Automations filters
@@ -20,7 +20,7 @@ const filterAutoScope = document.getElementById('filter-auto-scope');
 const clearAutoFiltersBtn = document.getElementById('clear-auto-filters');
 
 // Filter containers
-const promptsFilters = document.getElementById('prompts-filters');
+const skillsFilters = document.getElementById('skills-filters');
 const automationsFilters = document.getElementById('automations-filters');
 
 // Toggle buttons
@@ -34,6 +34,7 @@ const toast = document.getElementById('toast');
 
 // Icons for types
 const typeIcons = {
+  command: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>`,
   prompt: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>`,
   skill: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg>`,
   tool: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>`
@@ -120,6 +121,10 @@ async function init() {
     automations = await automationsResponse.json();
     commands = await commandsResponse.json();
     
+    // Combine commands and skills only (filter out prompts and tools)
+    const filteredPrompts = prompts.filter(p => p.type === 'skill');
+    skills = [...commands, ...filteredPrompts];
+    
     // Read URL params and set filters/view
     loadFiltersFromURL();
     
@@ -140,34 +145,27 @@ function loadFiltersFromURL() {
   
   // Set view
   const view = params.get('view');
-  if (view === 'automations' || view === 'commands') {
+  if (view === 'automations' || view === 'skills') {
     currentView = view;
     switchView(view);
   }
   
   // Check for automation detail view
   const automationId = params.get('automation');
-  if (automationId && view === 'automations') {
+  if (automationId && (view === 'automations' || !view)) {
     selectedAutomation = automations.find(a => a.id === automationId);
   }
   
   if (params.get('search')) searchInput.value = params.get('search');
   
-  // Prompts filters
+  // Skills filters
   if (params.get('type')) filterType.value = params.get('type');
   if (params.get('category')) filterCategory.value = params.get('category');
-  if (params.get('persona')) filterPersona.value = params.get('persona');
   
   // Automations filters
   if (params.get('autoCategory')) filterAutoCategory.value = params.get('autoCategory');
   if (params.get('trigger')) filterAutoTrigger.value = params.get('trigger');
   if (params.get('scope')) filterAutoScope.value = params.get('scope');
-  
-  // Commands filters
-  if (params.get('cmdCategory')) {
-    const cmdCategoryFilter = document.getElementById('filter-cmd-category');
-    if (cmdCategoryFilter) cmdCategoryFilter.value = params.get('cmdCategory');
-  }
 }
 
 // Update URL with current filters
@@ -178,17 +176,13 @@ function updateURL() {
   if (selectedAutomation) params.set('automation', selectedAutomation.id);
   if (searchInput.value) params.set('search', searchInput.value);
   
-  if (currentView === 'prompts') {
+  if (currentView === 'skills') {
     if (filterType.value) params.set('type', filterType.value);
     if (filterCategory.value) params.set('category', filterCategory.value);
-    if (filterPersona.value) params.set('persona', filterPersona.value);
   } else if (currentView === 'automations') {
     if (filterAutoCategory.value) params.set('autoCategory', filterAutoCategory.value);
     if (filterAutoTrigger.value) params.set('trigger', filterAutoTrigger.value);
     if (filterAutoScope.value) params.set('scope', filterAutoScope.value);
-  } else if (currentView === 'commands') {
-    const cmdCategoryFilter = document.getElementById('filter-cmd-category');
-    if (cmdCategoryFilter && cmdCategoryFilter.value) params.set('cmdCategory', cmdCategoryFilter.value);
   }
   
   const newURL = params.toString() 
@@ -203,10 +197,9 @@ function setupEventListeners() {
   // Search
   searchInput.addEventListener('input', debounce(applyFilters, 200));
   
-  // Prompts filters
+  // Skills filters
   filterType.addEventListener('change', applyFilters);
   filterCategory.addEventListener('change', applyFilters);
-  filterPersona.addEventListener('change', applyFilters);
   clearFiltersBtn.addEventListener('click', clearFilters);
   
   // Automations filters
@@ -214,12 +207,6 @@ function setupEventListeners() {
   filterAutoTrigger.addEventListener('change', applyFilters);
   filterAutoScope.addEventListener('change', applyFilters);
   clearAutoFiltersBtn.addEventListener('click', clearAutoFilters);
-  
-  // Commands filters
-  const filterCmdCategory = document.getElementById('filter-cmd-category');
-  const clearCmdFiltersBtn = document.getElementById('clear-cmd-filters');
-  if (filterCmdCategory) filterCmdCategory.addEventListener('change', applyFilters);
-  if (clearCmdFiltersBtn) clearCmdFiltersBtn.addEventListener('click', clearCmdFilters);
   
   // View toggle
   toggleBtns.forEach(btn => {
@@ -235,28 +222,34 @@ function setupEventListeners() {
 function switchView(view) {
   currentView = view;
   
+  // Clear selected automation when switching views
+  selectedAutomation = null;
+  const detailContainer = document.getElementById('automation-detail');
+  if (detailContainer) detailContainer.classList.add('hidden');
+  
+  // Show normal sections
+  document.querySelector('.controls').classList.remove('hidden');
+  document.querySelector('.all-prompts-section').classList.remove('hidden');
+  
   // Update toggle buttons
   toggleBtns.forEach(btn => {
     btn.classList.toggle('active', btn.dataset.view === view);
   });
   
-  // Update filters visibility
-  promptsFilters.classList.toggle('hidden', view !== 'prompts');
-  automationsFilters.classList.toggle('hidden', view !== 'automations' || selectedAutomation !== null);
-  const commandsFilters = document.getElementById('commands-filters');
-  if (commandsFilters) commandsFilters.classList.toggle('hidden', view !== 'commands');
-  const commandsIntro = document.getElementById('commands-intro');
-  if (commandsIntro) commandsIntro.classList.toggle('hidden', view !== 'commands');
+  // Update intro and filters visibility
+  const skillsIntro = document.getElementById('skills-intro');
+  if (skillsIntro) skillsIntro.classList.toggle('hidden', view !== 'skills');
+  if (skillsFilters) skillsFilters.classList.toggle('hidden', view !== 'skills');
+  
   const automationsIntro = document.getElementById('automations-intro');
   if (automationsIntro) automationsIntro.classList.toggle('hidden', view !== 'automations' || selectedAutomation !== null);
+  automationsFilters.classList.toggle('hidden', view !== 'automations' || selectedAutomation !== null);
   
   // Update search placeholder
-  if (view === 'prompts') {
-    searchInput.placeholder = 'Search prompts, skills, and tools...';
-  } else if (view === 'automations') {
-    searchInput.placeholder = 'Search automations...';
+  if (view === 'skills') {
+    searchInput.placeholder = 'Search commands and skills...';
   } else {
-    searchInput.placeholder = 'Search commands...';
+    searchInput.placeholder = 'Search automations...';
   }
   
   // Clear search when switching views
@@ -268,14 +261,6 @@ function clearAutoFilters() {
   filterAutoCategory.value = '';
   filterAutoTrigger.value = '';
   filterAutoScope.value = '';
-  searchInput.value = '';
-  applyFilters();
-}
-
-// Clear commands filters
-function clearCmdFilters() {
-  const filterCmdCategory = document.getElementById('filter-cmd-category');
-  if (filterCmdCategory) filterCmdCategory.value = '';
   searchInput.value = '';
   applyFilters();
 }
@@ -293,19 +278,17 @@ function debounce(fn, delay) {
 function applyFilters() {
   const search = searchInput.value.toLowerCase().trim();
   
-  if (currentView === 'prompts') {
+  if (currentView === 'skills') {
     const type = filterType.value;
     const category = filterCategory.value;
-    const persona = filterPersona.value;
     
-    filteredItems = prompts.filter(prompt => {
+    filteredItems = skills.filter(item => {
       if (search) {
-        const searchableText = `${prompt.title} ${prompt.description} ${prompt.content}`.toLowerCase();
+        const searchableText = `${item.title} ${item.description} ${item.content} ${item.command || ''}`.toLowerCase();
         if (!searchableText.includes(search)) return false;
       }
-      if (type && prompt.type !== type) return false;
-      if (category && prompt.tags.category !== category) return false;
-      if (persona && !prompt.tags.persona.includes(persona)) return false;
+      if (type && item.type !== type) return false;
+      if (category && item.tags.category !== category) return false;
       return true;
     });
   } else if (currentView === 'automations') {
@@ -319,18 +302,6 @@ function applyFilters() {
       if (category && auto.category !== category) return false;
       return true;
     });
-  } else if (currentView === 'commands') {
-    const cmdCategoryFilter = document.getElementById('filter-cmd-category');
-    const category = cmdCategoryFilter ? cmdCategoryFilter.value : '';
-    
-    filteredItems = commands.filter(cmd => {
-      if (search) {
-        const searchableText = `${cmd.title} ${cmd.command} ${cmd.description} ${cmd.content}`.toLowerCase();
-        if (!searchableText.includes(search)) return false;
-      }
-      if (category && cmd.tags.category !== category) return false;
-      return true;
-    });
   }
   
   updateURL();
@@ -342,8 +313,6 @@ function clearFilters() {
   searchInput.value = '';
   filterType.value = '';
   filterCategory.value = '';
-  filterPersona.value = '';
-
   applyFilters();
 }
 
@@ -356,16 +325,12 @@ function render() {
   }
   
   let dataSource;
-  if (currentView === 'prompts') dataSource = prompts;
-  else if (currentView === 'automations') dataSource = automations;
-  else dataSource = commands;
+  if (currentView === 'skills') dataSource = skills;
+  else dataSource = automations;
   
-  const cmdCategoryFilter = document.getElementById('filter-cmd-category');
-  const hasActiveFilters = currentView === 'prompts'
-    ? (searchInput.value || filterType.value || filterCategory.value || filterPersona.value)
-    : currentView === 'automations'
-    ? (searchInput.value || filterAutoCategory.value)
-    : (searchInput.value || (cmdCategoryFilter && cmdCategoryFilter.value));
+  const hasActiveFilters = currentView === 'skills'
+    ? (searchInput.value || filterType.value || filterCategory.value)
+    : (searchInput.value || filterAutoCategory.value);
   
   // Featured section - hide when filters are active or on automations view
   if (hasActiveFilters || currentView === 'automations') {
@@ -373,28 +338,21 @@ function render() {
   } else {
     featuredSection.classList.remove('hidden');
     const featuredItems = dataSource.filter(p => p.featured).slice(0, 3);
-    featuredGrid.innerHTML = featuredItems.map(p => {
-      if (currentView === 'prompts') return createCard(p);
-      return createCommandCard(p);
-    }).join('');
+    featuredGrid.innerHTML = featuredItems.map(p => createSkillCard(p)).join('');
     
     // Update featured section title
     const featuredTitle = featuredSection.querySelector('.section-title');
     if (featuredTitle) {
-      if (currentView === 'prompts') featuredTitle.textContent = 'Top prompts';
-      else featuredTitle.textContent = 'Top commands';
+      featuredTitle.textContent = 'Featured';
     }
   }
   
   // Results count and section title
   let itemType = 'items';
-  let sectionTitle = 'All prompts';
+  let sectionTitle = 'All commands & skills';
   if (currentView === 'automations') {
     itemType = 'automations';
     sectionTitle = 'All automations';
-  } else if (currentView === 'commands') {
-    itemType = 'commands';
-    sectionTitle = 'All commands';
   }
   resultsCount.textContent = `Showing ${filteredItems.length} of ${dataSource.length} ${itemType}`;
   
@@ -411,9 +369,8 @@ function render() {
     `;
   } else {
     promptsGrid.innerHTML = filteredItems.map(p => {
-      if (currentView === 'prompts') return createCard(p);
       if (currentView === 'automations') return createAutomationCard(p);
-      return createCommandCard(p);
+      return createSkillCard(p);
     }).join('');
   }
   
@@ -421,33 +378,35 @@ function render() {
   attachCardListeners();
 }
 
-// Create card HTML
-function createCard(prompt) {
-  const categoryLabel = formatLabel(prompt.tags.category);
+// Create unified skill card HTML (handles commands, prompts, skills, tools)
+function createSkillCard(item) {
+  const categoryLabel = formatLabel(item.tags.category);
+  const isCommand = item.type === 'command';
+  const allCategoryIcons = { ...categoryIcons, ...commandCategoryIcons };
   
   return `
-    <article class="card" data-id="${prompt.id}">
+    <article class="card ${isCommand ? 'card-command' : ''}" data-id="${item.id}">
       <div class="card-content">
         <div class="card-header">
-          <h3 class="card-title">${escapeHtml(prompt.title)}</h3>
+          <h3 class="card-title">${escapeHtml(item.title)}</h3>
           <div class="card-badges">
-            <span class="card-badge badge-category clickable" data-category="${prompt.tags.category}">${categoryIcons[prompt.tags.category] || ''}${categoryLabel}</span>
-            <span class="card-badge badge-${prompt.type} clickable-type" data-type="${prompt.type}">
-              ${typeIcons[prompt.type]}
-              ${prompt.type}
+            <span class="card-badge badge-category clickable" data-category="${item.tags.category}">${allCategoryIcons[item.tags.category] || ''}${categoryLabel}</span>
+            <span class="card-badge badge-${item.type} clickable-type" data-type="${item.type}">
+              ${typeIcons[item.type] || ''}
+              ${item.type}
             </span>
           </div>
         </div>
         
-        <p class="card-description">${escapeHtml(prompt.description)}</p>
+        <p class="card-description">${escapeHtml(item.description)}</p>
         
         <div class="card-preview">
-          <code>${escapeHtml(prompt.content)}</code>
+          <code>${escapeHtml(item.content)}</code>
         </div>
       </div>
       
       <div class="card-actions">
-        <button class="btn btn-copy" data-content="${escapeAttr(prompt.content)}">
+        <button class="btn btn-copy" data-content="${escapeAttr(item.content)}">
           Copy
         </button>
         <button class="btn btn-expand">
@@ -456,28 +415,37 @@ function createCard(prompt) {
       </div>
       
       <div class="card-expanded">
-        ${prompt.requirements && prompt.requirements.length > 0 ? `
+        ${item.requirements && item.requirements.length > 0 ? `
           <div class="expanded-section">
             <div class="expanded-label">Requirements</div>
             <ul class="requirements-list">
-              ${prompt.requirements.map(r => `<li>${escapeHtml(r)}</li>`).join('')}
+              ${item.requirements.map(r => `<li>${escapeHtml(r)}</li>`).join('')}
             </ul>
           </div>
         ` : ''}
         
-        ${prompt.exampleOutput ? `
+        ${item.exampleOutput ? `
           <div class="expanded-section">
             <div class="expanded-label">Example output</div>
-            <div class="expanded-content">${escapeHtml(prompt.exampleOutput)}</div>
+            <div class="expanded-content">${escapeHtml(item.exampleOutput)}</div>
           </div>
         ` : ''}
         
-        <div class="expanded-section">
-          <div class="expanded-label">Personas</div>
-          <div class="card-tags">
-            ${prompt.tags.persona.map(p => `<span class="tag">${formatLabel(p)}</span>`).join('')}
+        ${isCommand ? `
+          <div class="expanded-section">
+            <div class="expanded-label">Usage</div>
+            <div class="expanded-content"><code>/${item.command}</code> - Type this in Ona to run the command</div>
           </div>
-        </div>
+        ` : ''}
+        
+        ${item.tags.persona && item.tags.persona.length > 0 ? `
+          <div class="expanded-section">
+            <div class="expanded-label">Personas</div>
+            <div class="card-tags">
+              ${item.tags.persona.map(p => `<span class="tag">${formatLabel(p)}</span>`).join('')}
+            </div>
+          </div>
+        ` : ''}
       </div>
     </article>
   `;
@@ -506,6 +474,7 @@ function renderAutomationDetail() {
   if (!auto) return;
   
   // Hide normal sections
+  document.querySelector('.hero').classList.add('hidden');
   featuredSection.classList.add('hidden');
   document.querySelector('.controls').classList.add('hidden');
   document.querySelector('.all-prompts-section').classList.add('hidden');
@@ -526,57 +495,81 @@ function renderAutomationDetail() {
         Back to automations
       </button>
       
-      <div class="automation-detail-header">
-        <div class="automation-detail-icon">
-          ${automationIcons[auto.icon] || automationIcons['ci']}
+      <div class="automation-detail-header-row">
+        <div class="automation-detail-header">
+          <div class="automation-detail-header-top">
+            <div class="automation-detail-icon">
+              ${automationIcons[auto.icon] || automationIcons['ci']}
+            </div>
+            <h1 class="automation-detail-title">${escapeHtml(auto.title)}</h1>
+          </div>
+          <p class="automation-detail-description">${escapeHtml(auto.description)}</p>
+          <div class="automation-detail-actions">
+            <a href="${auto.templateUrl}" target="_blank" class="btn btn-primary btn-use-template-large">
+              Use this template
+            </a>
+            ${auto.exampleRepoUrl ? `
+            <a href="${auto.exampleRepoUrl}" target="_blank" class="btn btn-secondary btn-example-repo">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+              Try with example repo
+            </a>
+            ` : ''}
+          </div>
         </div>
-        <h1 class="automation-detail-title">${escapeHtml(auto.title)}</h1>
-        <p class="automation-detail-description">${escapeHtml(auto.description)}</p>
-        <div class="automation-detail-actions">
-          <a href="${auto.templateUrl}" target="_blank" class="btn btn-primary btn-use-template-large">
-            Use this template
-          </a>
-          ${auto.exampleRepoUrl ? `
-          <a href="${auto.exampleRepoUrl}" target="_blank" class="btn btn-secondary btn-example-repo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-            Try with example repo
-          </a>
-          ` : ''}
+        
+        <div class="automation-how-to-use">
+          <h3>How to use this template</h3>
+          <ol class="how-to-list">
+            <li>Set your trigger (manual, scheduled, or event-based)</li>
+            <li>Click "Use this template" or create a new automation in Ona</li>
+            <li>Copy each step below into the automation builder</li>
+            <li>Customize the prompts for your specific use case</li>
+          </ol>
         </div>
       </div>
       
       <div class="automation-detail-content">
-        <div class="automation-benefits">
-          <h3>What this does</h3>
-          <ul class="benefits-list">
-            ${auto.benefits.map((b, i) => `
-              <li>
-                <span class="benefit-number">${i + 1}</span>
-                <span class="benefit-text">${escapeHtml(b)}</span>
-              </li>
-            `).join('')}
-          </ul>
-        </div>
-        
-        <div class="automation-workflow">
-          <h3>Workflow</h3>
-          <div class="workflow-steps">
-            ${auto.steps.map((step, i) => `
-              <div class="workflow-step">
-                <div class="step-connector ${i === 0 ? 'first' : ''} ${i === auto.steps.length - 1 ? 'last' : ''}">
-                  <div class="step-dot"></div>
-                  ${i < auto.steps.length - 1 ? '<div class="step-line"></div>' : ''}
-                </div>
-                <div class="step-content">
-                  <div class="step-type step-type-${step.type}">
-                    ${stepTypeIcons[step.type] || ''}
-                    <span>${stepTypeLabels[step.type] || step.type}</span>
+        <div class="automation-main-content">
+          <div class="automation-benefits">
+            <h3>What this does</h3>
+            <ul class="benefits-list">
+              ${auto.benefits.map((b, i) => `
+                <li>
+                  <span class="benefit-number">${i + 1}</span>
+                  <span class="benefit-text">${escapeHtml(b)}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+          
+          <div class="automation-workflow">
+            <h3>Workflow</h3>
+            <div class="workflow-steps">
+              ${auto.steps.map((step, i) => `
+                <div class="workflow-step">
+                  <div class="step-connector ${i === 0 ? 'first' : ''} ${i === auto.steps.length - 1 ? 'last' : ''}">
+                    <div class="step-dot"></div>
+                    ${i < auto.steps.length - 1 ? '<div class="step-line"></div>' : ''}
                   </div>
-                  <h4 class="step-title">${escapeHtml(step.title)}</h4>
-                  <p class="step-description">${escapeHtml(step.content)}</p>
+                  <div class="step-content">
+                    <div class="step-header">
+                      <div class="step-type step-type-${step.type}">
+                        ${stepTypeIcons[step.type] || ''}
+                        <span>${stepTypeLabels[step.type] || step.type}</span>
+                      </div>
+                      ${step.type !== 'trigger' ? `
+                      <button class="btn btn-copy-step" data-step-content="${escapeAttr(step.content)}" title="Copy step">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        Copy
+                      </button>
+                      ` : ''}
+                    </div>
+                    <h4 class="step-title">${escapeHtml(step.title)}</h4>
+                    <p class="step-description">${escapeHtml(step.content)}</p>
+                  </div>
                 </div>
-              </div>
-            `).join('')}
+              `).join('')}
+            </div>
           </div>
         </div>
       </div>
@@ -587,59 +580,24 @@ function renderAutomationDetail() {
   document.getElementById('back-to-automations').addEventListener('click', () => {
     selectedAutomation = null;
     detailContainer.classList.add('hidden');
+    document.querySelector('.hero').classList.remove('hidden');
     document.querySelector('.controls').classList.remove('hidden');
     document.querySelector('.all-prompts-section').classList.remove('hidden');
     updateURL();
     render();
   });
+  
+  // Add copy step button listeners
+  document.querySelectorAll('.btn-copy-step').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const content = btn.dataset.stepContent;
+      copyToClipboard(content);
+    });
+  });
 }
 
-// Create command card HTML
-function createCommandCard(cmd) {
-  const categoryLabel = formatLabel(cmd.tags.category);
-  
-  return `
-    <article class="card card-command" data-id="${cmd.id}">
-      <div class="card-content">
-        <div class="card-header">
-          <h3 class="card-title">${escapeHtml(cmd.title)}</h3>
-          <div class="card-badges">
-            <span class="card-badge badge-cmd-category clickable-cmd-category" data-category="${cmd.tags.category}">${commandCategoryIcons[cmd.tags.category] || ''}${categoryLabel}</span>
-          </div>
-        </div>
-        
-        <p class="card-description">${escapeHtml(cmd.description)}</p>
-        
-        <div class="card-preview">
-          <code>${escapeHtml(cmd.content)}</code>
-        </div>
-      </div>
-      
-      <div class="card-actions">
-        <button class="btn btn-copy" data-content="${escapeAttr(cmd.content)}">
-          Copy
-        </button>
-        <button class="btn btn-expand">
-          Expand
-        </button>
-      </div>
-      
-      <div class="card-expanded">
-        ${cmd.exampleOutput ? `
-          <div class="expanded-section">
-            <div class="expanded-label">Example output</div>
-            <div class="expanded-content">${escapeHtml(cmd.exampleOutput)}</div>
-          </div>
-        ` : ''}
-        
-        <div class="expanded-section">
-          <div class="expanded-label">Usage</div>
-          <div class="expanded-content"><code>/${cmd.command}</code> - Type this in Ona to run the command</div>
-        </div>
-      </div>
-    </article>
-  `;
-}
+
 
 // Attach event listeners to cards
 function attachCardListeners() {
@@ -715,20 +673,6 @@ function attachCardListeners() {
       filterAutoCategory.value = category;
       applyFilters();
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  });
-  
-  // Command category badges - click to filter
-  document.querySelectorAll('.clickable-cmd-category').forEach(badge => {
-    badge.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const category = badge.dataset.category;
-      const cmdCategoryFilter = document.getElementById('filter-cmd-category');
-      if (cmdCategoryFilter) {
-        cmdCategoryFilter.value = category;
-        applyFilters();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
     });
   });
 }

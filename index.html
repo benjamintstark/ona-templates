@@ -10,14 +10,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="header">
+  <header class="header header-compact">
     <div class="header-content">
       <a href="/" class="logo">
         <img src="https://ona.com/ona-wordmark-black.svg" alt="Ona" class="logo-img">
       </a>
       <nav class="nav">
         <a href="https://ona.com/docs" class="nav-link">Docs</a>
-        <a href="https://ona.com/pricing" class="nav-link">Pricing</a>
         <a href="https://ona.com" class="nav-link btn-primary">Get Started</a>
       </nav>
     </div>
@@ -30,8 +29,7 @@
       
       <div class="view-toggle">
         <button class="toggle-btn active" data-view="automations">Automations</button>
-        <button class="toggle-btn" data-view="commands">Commands</button>
-        <button class="toggle-btn" data-view="prompts">Prompts</button>
+        <button class="toggle-btn" data-view="skills">Commands & Skills</button>
       </div>
     </section>
 
@@ -44,41 +42,34 @@
         <input type="text" id="search" placeholder="Search prompts, skills, and tools..." class="search-input">
       </div>
       
-      <!-- Prompts filters -->
-      <div class="filters hidden" id="prompts-filters">
+      <!-- Skills intro -->
+      <div class="skills-intro hidden" id="skills-intro">
+        <p><strong>Commands</strong> are shortcuts you type in Ona (e.g., <code>/review</code>) to instantly run predefined prompts that codify your organization's best practices. <strong>Skills</strong> are SKILL.md files containing step-by-step workflow instructions. They enable you to teach Ona Agent best practices for specific workflows that matter to you—creating PRs, deploying to staging, writing tests in a particular style. <a href="https://ona.com/docs/ona/slash-commands#create-custom-commands" target="_blank">Create your own</a>.</p>
+      </div>
+      
+      <!-- Skills filters (commands + skills) -->
+      <div class="filters hidden" id="skills-filters">
         <div class="filter-group">
           <label class="filter-label">Type</label>
           <select id="filter-type" class="filter-select">
             <option value="">All types</option>
-            <option value="prompt">Prompt</option>
+            <option value="command">Command</option>
             <option value="skill">Skill</option>
-            <option value="tool">Tool</option>
           </select>
         </div>
         
         <div class="filter-group">
-          <label class="filter-label">Use case</label>
+          <label class="filter-label">Category</label>
           <select id="filter-category" class="filter-select">
-            <option value="">All use cases</option>
+            <option value="">All categories</option>
             <option value="code-development">Code development</option>
             <option value="code-review">Code review</option>
             <option value="debugging">Debugging</option>
-            <option value="project-management">Project management</option>
+            <option value="deployment">Deployment</option>
             <option value="documentation">Documentation</option>
             <option value="migrations">Migrations</option>
-            <option value="cve-remediation">CVE remediation</option>
-            <option value="automations">Automations</option>
-          </select>
-        </div>
-        
-        <div class="filter-group">
-          <label class="filter-label">Persona</label>
-          <select id="filter-persona" class="filter-select">
-            <option value="">All personas</option>
-            <option value="developer">Developer</option>
-            <option value="tech-lead">Tech lead</option>
-            <option value="devops">DevOps</option>
-            <option value="security-engineer">Security engineer</option>
+            <option value="project-management">Project management</option>
+            <option value="testing">Testing</option>
           </select>
         </div>
         
@@ -87,7 +78,7 @@
       
       <!-- Automations intro -->
       <div class="automations-intro" id="automations-intro">
-        <p>Automations are end-to-end tasks that can be automated through our agent functionality, and enable engineer teams to repeatedly automate tasks of any size. Automations trigger on events (security alerts, pull requests, etc.) or can be manually scheduled. Use one of the Automation templates below, or <a href="https://app.ona.com/automations/new" target="_blank">create your own</a>.</p>
+        <p><strong>Automations</strong> are end-to-end tasks that can be automated through our agent functionality, and enable engineer teams to repeatedly automate tasks of any size. Automations trigger on events (security alerts, pull requests, etc.) or can be manually scheduled. Use one of the Automation templates below, or <a href="https://app.ona.com/automations/new" target="_blank">create your own</a>.</p>
       </div>
       
       <!-- Automations filters -->
@@ -132,27 +123,6 @@
         <button id="clear-auto-filters" class="clear-filters-btn">Clear filters</button>
       </div>
       
-      <!-- Commands intro and filters -->
-      <div class="commands-intro hidden" id="commands-intro">
-        <p>Commands are shortcuts to prompts that enable you to perform a longer prompt with one simple command. Here are some of the Ona team's favorite commands. Give them a try, or feel free to <a href="https://ona.com/docs/ona/slash-commands#create-custom-commands" target="_blank">create your own</a>.</p>
-      </div>
-      
-      <div class="filters hidden" id="commands-filters">
-        <div class="filter-group">
-          <label class="filter-label">Category</label>
-          <select id="filter-cmd-category" class="filter-select">
-            <option value="">All categories</option>
-            <option value="code-review">Code review</option>
-            <option value="testing">Testing</option>
-            <option value="documentation">Documentation</option>
-            <option value="debugging">Debugging</option>
-            <option value="deployment">Deployment</option>
-            <option value="code-development">Code development</option>
-          </select>
-        </div>
-        
-        <button id="clear-cmd-filters" class="clear-filters-btn">Clear filters</button>
-      </div>
     </section>
 
     <section class="featured-section" id="featured-section">
