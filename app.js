@@ -228,6 +228,8 @@ function switchView(view) {
   if (detailContainer) detailContainer.classList.add('hidden');
   
   // Show normal sections
+  document.querySelector('.hero h1').classList.remove('hidden');
+  document.querySelector('.hero .hero-subtitle').classList.remove('hidden');
   document.querySelector('.controls').classList.remove('hidden');
   document.querySelector('.all-prompts-section').classList.remove('hidden');
   
@@ -473,8 +475,9 @@ function renderAutomationDetail() {
   const auto = selectedAutomation;
   if (!auto) return;
   
-  // Hide normal sections
-  document.querySelector('.hero').classList.add('hidden');
+  // Hide normal sections but keep tab toggle visible
+  document.querySelector('.hero h1').classList.add('hidden');
+  document.querySelector('.hero .hero-subtitle').classList.add('hidden');
   featuredSection.classList.add('hidden');
   document.querySelector('.controls').classList.add('hidden');
   document.querySelector('.all-prompts-section').classList.add('hidden');
@@ -580,7 +583,8 @@ function renderAutomationDetail() {
   document.getElementById('back-to-automations').addEventListener('click', () => {
     selectedAutomation = null;
     detailContainer.classList.add('hidden');
-    document.querySelector('.hero').classList.remove('hidden');
+    document.querySelector('.hero h1').classList.remove('hidden');
+    document.querySelector('.hero .hero-subtitle').classList.remove('hidden');
     document.querySelector('.controls').classList.remove('hidden');
     document.querySelector('.all-prompts-section').classList.remove('hidden');
     updateURL();
